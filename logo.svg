@@ -1,0 +1,160 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle with gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d97706;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e2e8f0;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Drop shadow filter -->
+    <filter id="dropShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+    
+    <!-- Glow effect -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Main background circle -->
+  <circle cx="100" cy="100" r="95" fill="url(#bgGradient)" filter="url(#dropShadow)"/>
+  
+  <!-- Inner decorative circles -->
+  <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <circle cx="100" cy="100" r="75" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  
+  <!-- Central "T" for TechSpire -->
+  <g transform="translate(100,100)">
+    <!-- Main T structure -->
+    <rect x="-25" y="-35" width="50" height="8" fill="url(#textGradient)" rx="4"/>
+    <rect x="-4" y="-35" width="8" height="55" fill="url(#textGradient)" rx="4"/>
+    
+    <!-- Decorative elements around T -->
+    <!-- Left side elements representing creativity -->
+    <g transform="translate(-35, -15)">
+      <!-- Art brush stroke -->
+      <path d="M0,0 Q5,-3 10,0 Q15,3 20,0" stroke="url(#accentGradient)" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <circle cx="22" cy="0" r="2" fill="url(#accentGradient)"/>
+    </g>
+    
+    <!-- Right side elements representing technology -->
+    <g transform="translate(15, -15)">
+      <!-- Circuit pattern -->
+      <rect x="0" y="-2" width="6" height="4" fill="url(#accentGradient)" rx="1"/>
+      <rect x="8" y="-2" width="6" height="4" fill="url(#accentGradient)" rx="1"/>
+      <rect x="16" y="-2" width="6" height="4" fill="url(#accentGradient)" rx="1"/>
+      <line x1="6" y1="0" x2="8" y2="0" stroke="url(#accentGradient)" stroke-width="1"/>
+      <line x1="14" y1="0" x2="16" y2="0" stroke="url(#accentGradient)" stroke-width="1"/>
+    </g>
+    
+    <!-- Bottom elements representing collaboration -->
+    <g transform="translate(-20, 25)">
+      <!-- Connected nodes -->
+      <circle cx="0" cy="0" r="3" fill="url(#accentGradient)"/>
+      <circle cx="15" cy="5" r="3" fill="url(#accentGradient)"/>
+      <circle cx="30" cy="0" r="3" fill="url(#accentGradient)"/>
+      <circle cx="40" cy="-8" r="3" fill="url(#accentGradient)"/>
+      
+      <!-- Connection lines -->
+      <line x1="3" y1="0" x2="12" y2="5" stroke="url(#accentGradient)" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="18" y1="5" x2="27" y2="0" stroke="url(#accentGradient)" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="33" y1="0" x2="37" y2="-8" stroke="url(#accentGradient)" stroke-width="1.5" stroke-linecap="round"/>
+    </g>
+    
+    <!-- Top decorative elements representing innovation -->
+    <g transform="translate(-10, -50)">
+      <!-- Light bulb concept -->
+      <circle cx="10" cy="0" r="4" fill="none" stroke="url(#accentGradient)" stroke-width="1.5"/>
+      <rect x="8" y="3" width="4" height="2" fill="url(#accentGradient)" rx="1"/>
+      <line x1="10" y1="-6" x2="10" y2="-8" stroke="url(#accentGradient)" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="15" y1="-2" x2="17" y2="-4" stroke="url(#accentGradient)" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="5" y1="-2" x2="3" y2="-4" stroke="url(#accentGradient)" stroke-width="1.5" stroke-linecap="round"/>
+    </g>
+  </g>
+  
+  <!-- Orbital elements suggesting dynamic movement -->
+  <g opacity="0.6">
+    <!-- Outer orbital ring -->
+    <circle cx="100" cy="100" r="110" fill="none" stroke="url(#accentGradient)" stroke-width="1" stroke-dasharray="5,5" opacity="0.5">
+      <animateTransform
+        attributeName="transform"
+        attributeType="XML"
+        type="rotate"
+        from="0 100 100"
+        to="360 100 100"
+        dur="20s"
+        repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Small orbiting elements -->
+    <g>
+      <circle cx="210" cy="100" r="2" fill="url(#accentGradient)">
+        <animateTransform
+          attributeName="transform"
+          attributeType="XML"
+          type="rotate"
+          from="0 100 100"
+          to="360 100 100"
+          dur="20s"
+          repeatCount="indefinite"/>
+      </circle>
+    </g>
+    
+    <g>
+      <circle cx="190" cy="150" r="1.5" fill="url(#accentGradient)">
+        <animateTransform
+          attributeName="transform"
+          attributeType="XML"
+          type="rotate"
+          from="120 100 100"
+          to="480 100 100"
+          dur="20s"
+          repeatCount="indefinite"/>
+      </circle>
+    </g>
+    
+    <g>
+      <circle cx="190" cy="50" r="1.5" fill="url(#accentGradient)">
+        <animateTransform
+          attributeName="transform"
+          attributeType="XML"
+          type="rotate"
+          from="240 100 100"
+          to="600 100 100"
+          dur="20s"
+          repeatCount="indefinite"/>
+      </circle>
+    </g>
+  </g>
+  
+  <!-- Bottom text elements -->
+  <g transform="translate(100, 170)">
+    <text x="0" y="0" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="url(#textGradient)">
+      TALENT HUB
+    </text>
+    <text x="0" y="15" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" font-weight="400" fill="rgba(255,255,255,0.8)">
+      TECHSPIRE
+    </text>
+  </g>
+  
+  <!-- Subtle highlight effects -->
+  <g opacity="0.3">
+    <ellipse cx="75" cy="75" rx="15" ry="8" fill="white" transform="rotate(-45 75 75)"/>
+    <ellipse cx="125" cy="60" rx="10" ry="5" fill="white" transform="rotate(30 125 60)"/>
+  </g>
+</svg>

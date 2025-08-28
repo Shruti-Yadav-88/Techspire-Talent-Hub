@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crafts Gallery - TechSpire Talent Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <img src="logo.svg" alt="TechSpire Talent Hub" class="logo-img">
+                    <span class="logo-text">TechSpire Talent Hub</span>
+                </div>
+                <div class="nav-menu" id="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="arts.html" class="nav-link">Arts</a>
+                    <a href="singing.html" class="nav-link">Singing</a>
+                    <a href="dance.html" class="nav-link">Dance</a>
+                    <a href="poetry.html" class="nav-link">Poetry</a>
+                    <a href="blogs.html" class="nav-link">Blogs</a>
+                    <a href="innovations.html" class="nav-link">Innovations</a>
+                    <a href="crafts.html" class="nav-link ">Crafts</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                    <a href="dashboard.html" class="nav-link" id="dashboardLink" style="display: none;">Dashboard</a>
+                    <a href="login.html" class="nav-link login-btn" id="loginLink">Login</a>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Crafts Gallery</h1>
+                    <p>Explore amazing handmade crafts, DIY projects, and creative constructions by TechSpire students</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="gallery-section">
+            <div class="container">
+                <div class="gallery-header">
+                    <div class="gallery-filters">
+                        <button class="filter-btn active" data-filter="all">All Crafts</button>
+                        <button class="filter-btn" data-filter="handmade">Handmade</button>
+                        <button class="filter-btn" data-filter="diy">DIY Projects</button>
+                        <button class="filter-btn" data-filter="woodwork">Woodwork</button>
+                        <button class="filter-btn" data-filter="textile">Textile Arts</button>
+                        <button class="filter-btn" data-filter="recycled">Recycled Crafts</button>
+                    </div>
+                    <div class="gallery-controls">
+                        <div class="search-box">
+                            <input type="text" id="searchInput" placeholder="Search craft projects...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="sort-controls">
+                            <select id="sortSelect">
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                                <option value="popular">Most Popular</option>
+                                <option value="title">Title A-Z</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-grid" id="galleryGrid">
+                    <!-- Craft items will be populated here -->
+                </div>
+
+                <div class="load-more-container">
+                    <button class="btn btn-secondary" id="loadMoreBtn">Load More</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-crafters">
+            <div class="container">
+                <h2 class="section-title">Featured Crafters</h2>
+                <div class="crafters-grid" id="featuredCrafters">
+                    <!-- Featured crafters will be populated here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <img src="logo.svg" alt="TechSpire Talent Hub" class="logo-img">
+                        <span class="logo-text">TechSpire Talent Hub</span>
+                    </div>
+                    <p>Empowering TechSpire students to showcase their creative talents and innovative ideas.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="submit.html">Submit Talent</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="arts.html">Arts</a></li>
+                        <li><a href="singing.html">Singing</a></li>
+                        <li><a href="dance.html">Dance</a></li>
+                        <li><a href="poetry.html">Poetry</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 TechSpire Talent Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="script.js"></script>
+    <script>
+        let allCrafts = [];
+        let displayedCrafts = [];
+        let currentFilter = 'all';
+        let currentSort = 'newest';
+        let itemsPerPage = 12;
+        let currentPage = 1;
+
+        // Sample crafts data with provided images
+        const sampleCrafts = [
+            {
+                id: '1',
+                title: 'Handwoven Textile Art',
+                crafter: 'Meera Patel',
+                category: 'crafts',
+                type: 'textile',
+                materials: ['Cotton', 'Natural dyes', 'Wooden loom'],
+                image: 'https://pixabay.com/get/gbf55bb34ef251544399ac15ed8a80a51d55fa3b3af13bcb5bb013fd6f02baac8cda8e8848c8ef5e79922a67f11f3444c84ac020d8b70c0dd69abd500cc11d5c0_1280.jpg',
+                description: 'Beautiful handwoven textile art piece created using traditional weaving techniques with modern color patterns.',
+                longDescription: `This intricate textile artwork represents a fusion of traditional Indian weaving techniques with contemporary design aesthetics. The piece was created over several months using a traditional wooden loom and naturally dyed cotton threads.
+
+                The design incorporates geometric patterns inspired by both classical Indian motifs and modern abstract art. The color palette was carefully chosen to represent the harmony between nature and technology, reflecting the spirit of our institution.
+
+                Process details:
+                - Hand-spun cotton threads dyed with natural pigments
+                - Traditional pit loom weaving technique
+                - Over 200 hours of meticulous craftsmanship
+                - Sustainable and eco-friendly materials throughout`,
+                date: '2025-01-15',
+                timeSpent: '200 hours',
+                difficulty: 'Advanced',
+                likes: 78,
+                views: 520
+            },
+            {
+                id: '2',
+                title: 'Recycled Art Installation',
+                crafter: 'Vikram Singh',
+                category: 'crafts',
+                type: 'recycled',
+                materials: ['Plastic bottles', 'LED lights', 'Arduino'],
+                image: 'https://pixabay.com/get/gbaef784c4ad5af19e5feabea93d8ac07bd4b69fd584eeb82689cb9286e89df3a590fb750dd709f0bda8e916bef20506509db8c3c60397f92db6413a1779ef09a_1280.jpg',
+                description: 'Interactive art installation created from recycled materials with programmable LED lighting effects.',
+                longDescription: `This innovative installation transforms discarded plastic bottles into an interactive light sculpture that responds to viewer movement. The project combines environmental consciousness with technology to create an engaging artistic experience.
+
+                The installation features over 500 recycled plastic bottles arranged in a wave-like formation, each containing programmable LED lights controlled by Arduino microcontrollers. Motion sensors detect viewer presence and trigger dynamic lighting patterns.
+
+                Environmental impact:
+                - 500+ plastic bottles diverted from waste stream
+                - Solar-powered LED system for sustainability
+                - Educational component about recycling and upcycling
+                - Interactive technology encouraging engagement`,
+                date: '2025-01-12',
+                timeSpent: '120 hours',
+                difficulty: 'Intermediate',
+                likes: 95,
+                views: 680
+            },
+            {
+                id: '3',
+                title: 'Handcrafted Wooden Sculptures',
+                crafter: 'Asha Kumar',
+                category: 'crafts',
+                type: 'woodwork',
+                materials: ['Teak wood', 'Hand tools', 'Natural finish'],
+                image: 'https://pixabay.com/get/gb57f502dd142f6ab33cf68b9d2df9460383ef0361c2b8004f78442930b63038f181a57ef1fe20e1286c2ee29b2d23ed052417738b6f5e691ce944c09e40714bc_1280.jpg',
+                description: 'Elegant wooden sculptures carved entirely by hand using traditional woodworking techniques.',
+                longDescription: `These exquisite wooden sculptures showcase the timeless art of traditional woodcarving, created entirely using hand tools and techniques passed down through generations. Each piece tells a unique story through its form and texture.
+
+                The sculptures are carved from sustainably sourced teak wood, chosen for its durability and beautiful grain patterns. The artist spent considerable time studying the wood's natural characteristics to work with, rather than against, its inherent properties.
+
+                Artistic process:
+                - Traditional hand-carving techniques exclusively
+                - Natural wood grain incorporated into design
+                - Multiple finishing techniques for varied textures
+                - Each piece unique with no mechanical reproduction`,
+                date: '2025-01-10',
+                timeSpent: '150 hours',
+                difficulty: 'Advanced',
+                likes: 67,
+                views: 430
+            },
+            {
+                id: '4',
+                title: 'DIY Home Décor Collection',
+                crafter: 'Riya Sharma',
+                category: 'crafts',
+                type: 'diy',
+                materials: ['Various recycled items', 'Acrylic paints', 'Fabric'],
+                image: 'https://pixabay.com/get/g52466e9a90d0ba610082f3dcbc1fbf4f91a183dc38d45fbf39d49429bdfa30075dc8a3b060e19d592380ef7b00b9f8edcb779f10bf1cb9e784e513be31068ceb_1280.jpg',
+                description: 'Creative DIY home décor pieces made from everyday materials with unique artistic flair.',
+                longDescription: `This collection of DIY home décor items demonstrates how creativity can transform ordinary household items into beautiful, functional art pieces. Each item in the collection serves both aesthetic and practical purposes.
+
+                The project focuses on accessibility and sustainability, using materials that are readily available and often considered waste. The designs are intentionally simple enough for others to replicate while maintaining artistic integrity.
+
+                Collection highlights:
+                - Repurposed glass jars transformed into artistic lighting
+                - Fabric scraps woven into colorful wall hangings  
+                - Old magazines converted into decorative bowls
+                - Step-by-step tutorials created for each piece`,
+                date: '2025-01-08',
+                timeSpent: '80 hours',
+                difficulty: 'Beginner',
+                likes: 52,
+                views: 350
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthStatus();
+            loadCrafts();
+            setupEventListeners();
+        });
+
+        function checkAuthStatus() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const loginLink = document.getElementById('loginLink');
+            const dashboardLink = document.getElementById('dashboardLink');
+            
+            if (currentUser) {
+                loginLink.style.display = 'none';
+                dashboardLink.style.display = 'block';
+            }
+        }
+
+        function loadCrafts() {
+            // Combine submitted crafts with sample data
+            const submittedCrafts = JSON.parse(localStorage.getItem('submissions') || '[]')
+                .filter(sub => sub.category === 'crafts');
+            
+            allCrafts = [...sampleCrafts, ...submittedCrafts];
+            filterAndSortCrafts();
+        }
+
+        function filterAndSortCrafts() {
+            let filtered = allCrafts;
+
+            // Apply filter
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(craft => craft.type === currentFilter);
+            }
+
+            // Apply search
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            if (searchTerm) {
+                filtered = filtered.filter(craft => 
+                    craft.title.toLowerCase().includes(searchTerm) ||
+                    craft.crafter.toLowerCase().includes(searchTerm) ||
+                    craft.description.toLowerCase().includes(searchTerm) ||
+                    (craft.materials && craft.materials.some(material => material.toLowerCase().includes(searchTerm)))
+                );
+            }
+
+            // Apply sort
+            filtered.sort((a, b) => {
+                switch (currentSort) {
+                    case 'newest':
+                        return new Date(b.date) - new Date(a.date);
+                    case 'oldest':
+                        return new Date(a.date) - new Date(b.date);
+                    case 'popular':
+                        return (b.likes + b.views) - (a.likes + a.views);
+                    case 'title':
+                        return a.title.localeCompare(b.title);
+                    default:
+                        return 0;
+                }
+            });
+
+            displayedCrafts = filtered;
+            currentPage = 1;
+            renderCrafts();
+        }
+
+        function renderCrafts() {
+            const grid = document.getElementById('galleryGrid');
+            const startIndex = 0;
+            const endIndex = currentPage * itemsPerPage;
+            const craftsToShow = displayedCrafts.slice(startIndex, endIndex);
+
+            if (craftsToShow.length === 0) {
+                grid.innerHTML = '<div class="empty-state">No craft projects found. Try adjusting your filters or search terms.</div>';
+                document.getElementById('loadMoreBtn').style.display = 'none';
+                return;
+            }
+
+            grid.innerHTML = craftsToShow.map(craft => `
+                <div class="gallery-item craft-card" data-type="${craft.type}">
+                    <div class="gallery-image">
+                        <img src="${craft.image}" alt="${craft.title}" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="gallery-info">
+                                <h3>${craft.title}</h3>
+                                <p>By ${craft.crafter}</p>
+                                <div class="craft-details">
+                                    <span class="difficulty ${craft.difficulty ? craft.difficulty.toLowerCase() : ''}">${craft.difficulty || 'Intermediate'}</span>
+                                    <span class="time-spent">${craft.timeSpent || 'N/A'}</span>
+                                </div>
+                            </div>
+                            <div class="gallery-actions">
+                                <button class="action-btn like-btn" onclick="likeCraft('${craft.id}')">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                                <button class="action-btn view-btn" onclick="viewCraft('${craft.id}')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="type-tag">${formatType(craft.type)}</div>
+                    </div>
+                    <div class="gallery-details">
+                        <h3>${craft.title}</h3>
+                        <p class="crafter-name">By ${craft.crafter}</p>
+                        <p class="craft-description">${craft.description}</p>
+                        <div class="craft-materials">
+                            ${craft.materials ? craft.materials.slice(0, 3).map(material => `<span class="material-tag">${material}</span>`).join('') : ''}
+                        </div>
+                        <div class="craft-meta">
+                            <span class="date">${formatDate(craft.date)}</span>
+                            <div class="craft-stats">
+                                <span><i class="fas fa-heart"></i> ${craft.likes}</span>
+                                <span><i class="fas fa-eye"></i> ${craft.views}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Show/hide load more button
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            if (endIndex >= displayedCrafts.length) {
+                loadMoreBtn.style.display = 'none';
+            } else {
+                loadMoreBtn.style.display = 'block';
+            }
+        }
+
+        function setupEventListeners() {
+            // Filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.dataset.filter;
+                    filterAndSortCrafts();
+                });
+            });
+
+            // Search input
+            document.getElementById('searchInput').addEventListener('input', function() {
+                filterAndSortCrafts();
+            });
+
+            // Sort select
+            document.getElementById('sortSelect').addEventListener('change', function() {
+                currentSort = this.value;
+                filterAndSortCrafts();
+            });
+
+            // Load more button
+            document.getElementById('loadMoreBtn').addEventListener('click', function() {
+                currentPage++;
+                renderCrafts();
+            });
+        }
+
+        function formatType(type) {
+            const types = {
+                'handmade': 'Handmade',
+                'diy': 'DIY Projects',
+                'woodwork': 'Woodwork',
+                'textile': 'Textile Arts',
+                'recycled': 'Recycled Crafts'
+            };
+            return types[type] || type;
+        }
+
+        function viewCraft(craftId) {
+            const craft = allCrafts.find(c => c.id === craftId);
+            if (craft) {
+                craft.views = (craft.views || 0) + 1;
+                updateSubmissionInStorage(craft);
+                
+                // Display detailed information
+                const detailsText = `${craft.title}\n\nBy: ${craft.crafter}\nType: ${formatType(craft.type)}\nDifficulty: ${craft.difficulty || 'Intermediate'}\nTime Spent: ${craft.timeSpent || 'N/A'}\nMaterials: ${craft.materials ? craft.materials.join(', ') : 'N/A'}\n\n${craft.longDescription || craft.description}`;
+                
+                alert(detailsText);
+                renderCrafts();
+            }
+        }
+
+        function likeCraft(craftId) {
+            const craft = allCrafts.find(c => c.id === craftId);
+            if (craft) {
+                craft.likes = (craft.likes || 0) + 1;
+                updateSubmissionInStorage(craft);
+                renderCrafts();
+            }
+        }
+
+        function updateSubmissionInStorage(craft) {
+            const submissions = JSON.parse(localStorage.getItem('submissions') || '[]');
+            const index = submissions.findIndex(sub => sub.id === craft.id);
+            if (index !== -1) {
+                submissions[index] = craft;
+                localStorage.setItem('submissions', JSON.stringify(submissions));
+            }
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+            });
+        }
+    </script>
+    <script type="module" src="js/navigation.js"></script>
+</body>
+</html>

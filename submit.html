@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Talent - TechSpire Talent Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <img src="logo.svg" alt="TechSpire Talent Hub" class="logo-img">
+                    <span class="logo-text">TechSpire Talent Hub</span>
+                </div>
+                <div class="nav-menu" id="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="dashboard.html" class="nav-link">Dashboard</a>
+                    <a href="submit.html" class="nav-link ">Submit Talent</a>
+                    <a href="profile.html" class="nav-link">Profile</a>
+                    <a href="#" class="nav-link" id="logoutBtn">Logout</a>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="submit-main">
+        <div class="container">
+            <div class="submit-header">
+                <h1>Submit Your Talent</h1>
+                <p>Share your creative work with the TechSpire community</p>
+            </div>
+
+            <form class="submit-form" id="submitForm">
+                <div class="form-section">
+                    <h2>Basic Information</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="title">Title *</label>
+                            <input type="text" id="title" name="title" required placeholder="Enter a catchy title for your work">
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category *</label>
+                            <select id="category" name="category" required>
+                                <option value="">Select a category</option>
+                                <option value="arts">Arts</option>
+                                <option value="singing">Singing</option>
+                                <option value="dance">Dance</option>
+                                <option value="poetry">Poetry</option>
+                                <option value="blogs">Blogs</option>
+                                <option value="innovations">Innovations</option>
+                                <option value="crafts">Crafts</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="subcategorySection" class="form-group" style="display: none;">
+                        <label for="subcategory">Subcategory *</label>
+                        <select id="subcategory" name="subcategory">
+                            <option value="">Select a subcategory</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description *</label>
+                        <textarea id="description" name="description" required rows="4" placeholder="Describe your work, inspiration, and creative process..."></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Media & Files</h2>
+                    <div class="form-group">
+                        <label for="imageUrl">Image URL</label>
+                        <input type="url" id="imageUrl" name="imageUrl" placeholder="https://example.com/your-image.jpg">
+                        <small class="form-text">Provide a URL to an image representing your work</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="externalLink">External Link</label>
+                        <input type="url" id="externalLink" name="externalLink" placeholder="https://example.com/your-project">
+                        <small class="form-text">Link to your project, portfolio, or external content</small>
+                    </div>
+                </div>
+
+                <!-- Category-specific fields -->
+                <div id="artsFields" class="category-fields" style="display: none;">
+                    <div class="form-section">
+                        <h2>Arts Details</h2>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="artMedium">Medium</label>
+                                <input type="text" id="artMedium" name="artMedium" placeholder="e.g., Oil on canvas, Digital art, Watercolor">
+                            </div>
+                            <div class="form-group">
+                                <label for="artDimensions">Dimensions</label>
+                                <input type="text" id="artDimensions" name="artDimensions" placeholder="e.g., 12x16 inches, 1920x1080 pixels">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="performanceFields" class="category-fields" style="display: none;">
+                    <div class="form-section">
+                        <h2>Performance Details</h2>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="duration">Duration</label>
+                                <input type="text" id="duration" name="duration" placeholder="e.g., 3:45, 5 minutes">
+                            </div>
+                            <div class="form-group">
+                                <label for="genre">Genre/Style</label>
+                                <input type="text" id="genre" name="genre" placeholder="e.g., Pop, Classical, Hip Hop">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="writingFields" class="category-fields" style="display: none;">
+                    <div class="form-section">
+                        <h2>Writing Details</h2>
+                        <div class="form-group">
+                            <label for="content">Full Content</label>
+                            <textarea id="content" name="content" rows="10" placeholder="Paste your full poem, blog post, or written content here..."></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="wordCount">Word Count</label>
+                                <input type="number" id="wordCount" name="wordCount" placeholder="Approximate word count">
+                            </div>
+                            <div class="form-group">
+                                <label for="readTime">Estimated Read Time</label>
+                                <input type="text" id="readTime" name="readTime" placeholder="e.g., 5 min read">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="innovationFields" class="category-fields" style="display: none;">
+                    <div class="form-section">
+                        <h2>Innovation Details</h2>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="techStack">Technologies Used</label>
+                                <input type="text" id="techStack" name="techStack" placeholder="e.g., React, Python, Arduino, TensorFlow">
+                            </div>
+                            <div class="form-group">
+                                <label for="projectStatus">Project Status</label>
+                                <select id="projectStatus" name="projectStatus">
+                                    <option value="">Select status</option>
+                                    <option value="prototype">Prototype</option>
+                                    <option value="development">In Development</option>
+                                    <option value="beta">Beta</option>
+                                    <option value="production">Production/Live</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="githubLink">GitHub Repository</label>
+                                <input type="url" id="githubLink" name="githubLink" placeholder="https://github.com/username/repository">
+                            </div>
+                            <div class="form-group">
+                                <label for="demoLink">Live Demo</label>
+                                <input type="url" id="demoLink" name="demoLink" placeholder="https://your-demo.com">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="craftsFields" class="category-fields" style="display: none;">
+                    <div class="form-section">
+                        <h2>Crafts Details</h2>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="materials">Materials Used</label>
+                                <input type="text" id="materials" name="materials" placeholder="e.g., Wood, Fabric, Recycled materials">
+                            </div>
+                            <div class="form-group">
+                                <label for="timeSpent">Time Spent</label>
+                                <input type="text" id="timeSpent" name="timeSpent" placeholder="e.g., 20 hours, 2 weeks">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="difficulty">Difficulty Level</label>
+                            <select id="difficulty" name="difficulty">
+                                <option value="">Select difficulty</option>
+                                <option value="beginner">Beginner</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Additional Information</h2>
+                    <div class="form-group">
+                        <label for="tags">Tags</label>
+                        <input type="text" id="tags" name="tags" placeholder="Separate tags with commas (e.g., creative, modern, inspiring)">
+                        <small class="form-text">Add relevant tags to help others discover your work</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inspiration">Inspiration/Story Behind</label>
+                        <textarea id="inspiration" name="inspiration" rows="3" placeholder="Share the story or inspiration behind your creation..."></textarea>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='dashboard.html'">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit Talent</button>
+                </div>
+            </form>
+
+            <div class="success-message" id="successMessage" style="display: none;"></div>
+            <div class="error-message" id="errorMessage" style="display: none;"></div>
+        </div>
+    </main>
+
+    <script type="module" src="script.js"></script>
+    <script>
+        // Check if user is logged in
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser) {
+            window.location.href = 'login.html';
+        }
+
+        // Category-specific subcategories
+        const subcategories = {
+            arts: [
+                { value: 'painting', text: 'Painting' },
+                { value: 'drawing', text: 'Drawing' },
+                { value: 'digital', text: 'Digital Art' },
+                { value: 'sculpture', text: 'Sculpture' },
+                { value: 'mixed-media', text: 'Mixed Media' }
+            ],
+            singing: [
+                { value: 'original', text: 'Original Song' },
+                { value: 'cover', text: 'Cover Song' },
+                { value: 'classical', text: 'Classical' },
+                { value: 'pop', text: 'Pop' },
+                { value: 'folk', text: 'Folk' }
+            ],
+            dance: [
+                { value: 'contemporary', text: 'Contemporary' },
+                { value: 'hiphop', text: 'Hip Hop' },
+                { value: 'classical', text: 'Classical' },
+                { value: 'folk', text: 'Folk' },
+                { value: 'bollywood', text: 'Bollywood' }
+            ],
+            poetry: [
+                { value: 'sonnet', text: 'Sonnet' },
+                { value: 'haiku', text: 'Haiku' },
+                { value: 'free-verse', text: 'Free Verse' },
+                { value: 'spoken-word', text: 'Spoken Word' },
+                { value: 'narrative', text: 'Narrative' }
+            ],
+            blogs: [
+                { value: 'tech', text: 'Technology' },
+                { value: 'lifestyle', text: 'Lifestyle' },
+                { value: 'education', text: 'Education' },
+                { value: 'personal', text: 'Personal' },
+                { value: 'review', text: 'Review' }
+            ],
+            innovations: [
+                { value: 'software', text: 'Software' },
+                { value: 'hardware', text: 'Hardware' },
+                { value: 'ai-ml', text: 'AI & Machine Learning' },
+                { value: 'web-app', text: 'Web Application' },
+                { value: 'mobile', text: 'Mobile App' },
+                { value: 'iot', text: 'IoT Project' }
+            ],
+            crafts: [
+                { value: 'handmade', text: 'Handmade' },
+                { value: 'diy', text: 'DIY Project' },
+                { value: 'woodwork', text: 'Woodwork' },
+                { value: 'textile', text: 'Textile Arts' },
+                { value: 'recycled', text: 'Recycled Crafts' },
+                { value: 'pottery', text: 'Pottery' }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            // Category change handler
+            document.getElementById('category').addEventListener('change', function() {
+                const category = this.value;
+                handleCategoryChange(category);
+            });
+
+            // Form submission
+            document.getElementById('submitForm').addEventListener('submit', handleSubmit);
+
+            // Auto-calculate word count and read time for writing fields
+            document.getElementById('content').addEventListener('input', function() {
+                const content = this.value;
+                const wordCount = content.trim().split(/\s+/).length;
+                const readTime = Math.ceil(wordCount / 200); // Average 200 words per minute
+                
+                document.getElementById('wordCount').value = wordCount;
+                document.getElementById('readTime').value = `${readTime} min read`;
+            });
+
+            // Logout functionality
+            document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                if (confirm('Are you sure you want to logout?')) {
+                    localStorage.removeItem('currentUser');
+                    window.location.href = 'index.html';
+                }
+            });
+        }
+
+        function handleCategoryChange(category) {
+            // Hide all category-specific fields
+            document.querySelectorAll('.category-fields').forEach(field => {
+                field.style.display = 'none';
+            });
+
+            // Show subcategory section if category has subcategories
+            const subcategorySection = document.getElementById('subcategorySection');
+            const subcategorySelect = document.getElementById('subcategory');
+            
+            if (category && subcategories[category]) {
+                subcategorySection.style.display = 'block';
+                subcategorySelect.innerHTML = '<option value="">Select a subcategory</option>';
+                subcategories[category].forEach(sub => {
+                    subcategorySelect.innerHTML += `<option value="${sub.value}">${sub.text}</option>`;
+                });
+                subcategorySelect.required = true;
+            } else {
+                subcategorySection.style.display = 'none';
+                subcategorySelect.required = false;
+            }
+
+            // Show category-specific fields
+            switch (category) {
+                case 'arts':
+                    document.getElementById('artsFields').style.display = 'block';
+                    break;
+                case 'singing':
+                case 'dance':
+                    document.getElementById('performanceFields').style.display = 'block';
+                    break;
+                case 'poetry':
+                case 'blogs':
+                    document.getElementById('writingFields').style.display = 'block';
+                    break;
+                case 'innovations':
+                    document.getElementById('innovationFields').style.display = 'block';
+                    break;
+                case 'crafts':
+                    document.getElementById('craftsFields').style.display = 'block';
+                    break;
+            }
+        }
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const data = {};
+            
+            // Convert FormData to object
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+
+            // Add metadata
+            data.id = Date.now().toString();
+            data.userId = currentUser.id;
+            data.authorName = `${currentUser.firstName} ${currentUser.lastName}`;
+            data.date = new Date().toISOString();
+            data.likes = 0;
+            data.views = 0;
+
+            // Process tags
+            if (data.tags) {
+                data.tags = data.tags.split(',').map(tag => tag.trim()).filter(tag => tag);
+            }
+
+            // Process category-specific fields
+            if (data.category === 'innovations' && data.techStack) {
+                data.tech = data.techStack.split(',').map(tech => tech.trim()).filter(tech => tech);
+            }
+
+            if (data.category === 'crafts' && data.materials) {
+                data.materials = data.materials.split(',').map(material => material.trim()).filter(material => material);
+            }
+
+            // Validate required fields
+            if (!data.title || !data.category || !data.description) {
+                showError('Please fill in all required fields.');
+                return;
+            }
+
+            if (data.imageUrl && data.imageUrl !== '') {
+                data.image = data.imageUrl;
+            }
+
+            // Save submission
+            const submissions = JSON.parse(localStorage.getItem('submissions') || '[]');
+            submissions.push(data);
+            localStorage.setItem('submissions', JSON.stringify(submissions));
+
+            // Update user's submissions count
+            currentUser.submissions = currentUser.submissions || [];
+            currentUser.submissions.push(data.id);
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+            // Update user in users array
+            const users = JSON.parse(localStorage.getItem('techspireUsers') || '[]');
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex !== -1) {
+                users[userIndex] = currentUser;
+                localStorage.setItem('techspireUsers', JSON.stringify(users));
+            }
+
+            showSuccess('Your talent has been submitted successfully!');
+            
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 2000);
+        }
+
+        function showError(message) {
+            const errorElement = document.getElementById('errorMessage');
+            const successElement = document.getElementById('successMessage');
+            
+            successElement.style.display = 'none';
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+            
+            // Scroll to top to show message
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showSuccess(message) {
+            const errorElement = document.getElementById('errorMessage');
+            const successElement = document.getElementById('successMessage');
+            
+            errorElement.style.display = 'none';
+            successElement.textContent = message;
+            successElement.style.display = 'block';
+            
+            // Scroll to top to show message
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+    <script type="module" src="js/navigation.js"></script>
+</body>
+</html>

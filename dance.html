@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dance Performances - TechSpire Talent Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Video Modal Styles */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .video-modal.active {
+            display: flex;
+        }
+
+        .video-container {
+            width: 90%;
+            max-width: 1000px;
+            position: relative;
+        }
+
+        .video-player {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            border-radius: 8px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .video-info {
+            color: #fff;
+            margin-top: 15px;
+        }
+
+        .video-info h3 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+        }
+
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #aaa;
+            margin-bottom: 15px;
+        }
+
+        .modal-body video {
+            width: 100%;
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-4);
+            background-color: var(--gray-900);
+        }
+
+        .modal .performance-info {
+            padding: var(--spacing-4);
+            background-color: var(--gray-50);
+            border-radius: var(--radius-md);
+        }
+
+        .modal .performance-info h3 {
+            margin: 0 0 var(--spacing-2);
+            color: var(--gray-900);
+        }
+
+        .modal .performance-meta {
+            margin-top: var(--spacing-4);
+            display: flex;
+            gap: var(--spacing-4);
+            color: var(--gray-600);
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <img src="logo.svg" alt="TechSpire Talent Hub" class="logo-img">
+                    <span class="logo-text">TechSpire Talent Hub</span>
+                </div>
+                <div class="nav-menu" id="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="arts.html" class="nav-link">Arts</a>
+                    <a href="singing.html" class="nav-link">Singing</a>
+                    <a href="dance.html" class="nav-link active">Dance</a>
+                    <a href="poetry.html" class="nav-link">Poetry</a>
+                    <a href="blogs.html" class="nav-link">Blogs</a>
+                    <a href="innovations.html" class="nav-link">Innovations</a>
+                    <a href="crafts.html" class="nav-link">Crafts</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                    <a href="dashboard.html" class="nav-link" id="dashboardLink" style="display: none;">Dashboard</a>
+                    <a href="login.html" class="nav-link login-btn" id="loginLink">Login</a>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Dance Performances</h1>
+                    <p>Watch incredible choreography, dance performances, and movement art by TechSpire students</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="gallery-section">
+            <div class="container">
+                <div class="gallery-header">
+                    <div class="gallery-filters">
+                        <button class="filter-btn active" data-filter="all">All Dances</button>
+                        <button class="filter-btn" data-filter="contemporary">Contemporary</button>
+                        <button class="filter-btn" data-filter="hiphop">Hip Hop</button>
+                        <button class="filter-btn" data-filter="classical">Classical</button>
+                        <button class="filter-btn" data-filter="folk">Folk</button>
+                    </div>
+                    <div class="gallery-controls">
+                        <div class="search-box">
+                            <input type="text" id="searchInput" placeholder="Search dance performances...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="sort-controls">
+                            <select id="sortSelect">
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                                <option value="popular">Most Popular</option>
+                                <option value="title">Title A-Z</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="performances-grid" id="performancesGrid">
+                    <!-- Dance performance items will be populated here -->
+                </div>
+
+                <div class="load-more-container">
+                    <button class="btn btn-secondary" id="loadMoreBtn">Load More</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-artists">
+            <div class="container">
+                <h2 class="section-title">Featured Dancers</h2>
+                <div class="artists-grid" id="featuredDancers">
+                    <!-- Featured dancers will be populated here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <img src="logo.svg" alt="TechSpire Talent Hub" class="logo-img">
+                        <span class="logo-text">TechSpire Talent Hub</span>
+                    </div>
+                    <p>Empowering TechSpire students to showcase their creative talents and innovative ideas.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="submit.html">Submit Talent</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="arts.html">Arts</a></li>
+                        <li><a href="singing.html">Singing</a></li>
+                        <li><a href="dance.html">Dance</a></li>
+                        <li><a href="poetry.html">Poetry</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+            </div>
+        </div>
+
+        <script type="module" src="script.js"></script>
+        <script>
+            let allPerformances = [];
+            let displayedPerformances = [];
+            let currentFilter = 'all';
+            let currentSort = 'newest';
+            let itemsPerPage = 12;
+            let currentPage = 1;
+
+        // Function to get the correct thumbnail path
+        function getThumbnailPath(performance) {
+            // First try the image path from the performance data
+            if (performance.image) {
+                return performance.image;
+            }
+            
+            // If no image specified, try to generate a thumbnail path from video path
+            if (performance.video) {
+                const videoPath = performance.video;
+                const extensionIndex = videoPath.lastIndexOf('.');
+                if (extensionIndex !== -1) {
+                    return videoPath.substring(0, extensionIndex) + '.jpg';
+                }
+            }
+            
+            // Fallback to placeholder
+            return 'placeholder-thumbnail.jpg';
+        }
+
+        // Sample performances data with provided images
+        const samplePerformances = [
+            {
+                id: '1',
+                title: 'Dance Performance 1',
+                artist: 'Dance Group A',
+                category: 'dance',
+                subcategory: 'contemporary',
+                genre: 'contemporary',
+                image: 'contents/thumnail1img1.png',
+                video: 'contents/dance1.mp4',
+                description: 'Amazing contemporary dance performance by Dance Group A',
+                date: '2025-02-15',
+                duration: '3:45',
+                likes: 120,
+                views: 850
+            },
+            {
+                id: '2',
+                title: 'Dance Performance 2',
+                artist: 'Dance Group B',
+                category: 'dance',
+                subcategory: 'hiphop',
+                genre: 'hiphop',
+                image: 'contents/thumbnail2.png',
+                video: 'contents/dance2.mp4',
+                description: 'Energetic hip hop dance routine by Dance Group B',
+                date: '2025-02-14',
+                duration: '4:20',
+                likes: 95,
+                views: 720
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function () {
+            checkAuthStatus();
+            loadPerformances();
+            setupEventListeners();
+        });
+
+        function checkAuthStatus() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const loginLink = document.getElementById('loginLink');
+            const dashboardLink = document.getElementById('dashboardLink');
+
+            if (currentUser) {
+                loginLink.style.display = 'none';
+                dashboardLink.style.display = 'block';
+            }
+        }
+
+        function loadPerformances() {
+            // Combine submitted dance performances with sample data
+            const submittedPerformances = JSON.parse(localStorage.getItem('submissions') || '[]')
+                .filter(sub => sub.category === 'dance');
+
+            allPerformances = [...samplePerformances, ...submittedPerformances];
+            filterAndSortPerformances();
+        }
+
+        function filterAndSortPerformances() {
+            let filtered = allPerformances;
+
+            // Apply filter
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(performance =>
+                    performance.subcategory === currentFilter || performance.style === currentFilter
+                );
+            }
+
+            // Apply search
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            if (searchTerm) {
+                filtered = filtered.filter(performance =>
+                    performance.title.toLowerCase().includes(searchTerm) ||
+                    performance.artist.toLowerCase().includes(searchTerm) ||
+                    performance.description.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            // Apply sort
+            filtered.sort((a, b) => {
+                switch (currentSort) {
+                    case 'newest':
+                        return new Date(b.date) - new Date(a.date);
+                    case 'oldest':
+                        return new Date(a.date) - new Date(b.date);
+                    case 'popular':
+                        return (b.likes + b.views) - (a.likes + a.views);
+                    case 'title':
+                        return a.title.localeCompare(b.title);
+                    default:
+                        return 0;
+                }
+            });
+
+            displayedPerformances = filtered;
+            currentPage = 1;
+            renderPerformances();
+        }
+
+        function renderPerformances() {
+            const grid = document.getElementById('performancesGrid');
+            const startIndex = 0;
+            const endIndex = currentPage * itemsPerPage;
+            const performancesToShow = displayedPerformances.slice(startIndex, endIndex);
+
+            if (performancesToShow.length === 0) {
+                grid.innerHTML = '<div class="empty-state">No dance performances found. Try adjusting your filters or search terms.</div>';
+                document.getElementById('loadMoreBtn').style.display = 'none';
+                return;
+            }
+
+            // Render the performances with thumbnails
+            grid.innerHTML = performancesToShow.map(performance => `
+                <div class="performance-card" data-category="${performance.subcategory}">
+                    <div class="performance-image">
+                        <img src="${performance.image}" 
+                             alt="${performance.title}" 
+                             loading="lazy"
+                             onerror="this.src='placeholder-thumbnail.jpg'">
+                        <div class="play-overlay">
+                            <button class="play-btn" onclick="playPerformance('${performance.id}')">
+                                <i class="fas fa-play"></i>
+                            </button>
+                        </div>
+                        <div class="duration-tag">${performance.duration || '4:00'}</div>
+                        <div class="style-tag">${performance.style || performance.subcategory}</div>
+                    </div>
+                    <div class="performance-info">
+                        <h3>${performance.title}</h3>
+                        <p class="artist-name">By ${performance.artist}</p>
+                        <p class="performance-description">${performance.description}</p>
+                        <div class="performance-meta">
+                            <span class="genre-tag">${performance.style || performance.subcategory}</span>
+                            <span class="date">${formatDate(performance.date)}</span>
+                        </div>
+                        <div class="performance-stats">
+                            <button class="stat-btn like-btn" onclick="likePerformance('${performance.id}')">
+                                <i class="fas fa-heart"></i> ${performance.likes}
+                            </button>
+                            <button class="stat-btn view-btn" onclick="viewPerformance('${performance.id}')">
+                                <i class="fas fa-eye"></i> ${performance.views}
+                            </button>
+                            <button class="stat-btn share-btn" onclick="sharePerformance('${performance.id}')">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                `).join('');
+
+            // Show/hide load more button
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            if (endIndex >= displayedPerformances.length) {
+                loadMoreBtn.style.display = 'none';
+            } else {
+                loadMoreBtn.style.display = 'block';
+            }
+        }
+
+        function setupEventListeners() {
+            // Filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.dataset.filter;
+                    filterAndSortPerformances();
+                });
+            });
+
+            // Search input
+            document.getElementById('searchInput').addEventListener('input', function () {
+                filterAndSortPerformances();
+            });
+
+            // Sort select
+            document.getElementById('sortSelect').addEventListener('change', function () {
+                currentSort = this.value;
+                filterAndSortPerformances();
+            });
+
+            // Load more button
+            document.getElementById('loadMoreBtn').addEventListener('click', function () {
+                currentPage++;
+                renderPerformances();
+            });
+        }
+
+        function playPerformance(performanceId) {
+            const performance = allPerformances.find(p => p.id === performanceId);
+            if (!performance) return;
+
+            // Update view count
+            performance.views = (performance.views || 0) + 1;
+            updateSubmissionInStorage(performance);
+            
+            // Get modal elements
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('performanceVideo');
+            const videoSource = document.getElementById('videoSource');
+            const title = document.getElementById('videoTitle');
+            const artist = document.getElementById('videoArtist');
+            const views = document.getElementById('videoViews');
+            const description = document.getElementById('videoDescription');
+            const videoDate = document.getElementById('videoDate');
+            
+            // Set video metadata
+            title.textContent = performance.title;
+            artist.textContent = `By ${performance.artist}`;
+            views.textContent = `${performance.views} views`;
+            description.textContent = performance.description || 'No description available';
+            videoDate.textContent = formatDate(performance.date);
+            
+            // Clear previous source and set new one
+            video.pause();
+            video.currentTime = 0;
+            
+            // Remove all sources
+            while (video.firstChild) {
+                video.removeChild(video.firstChild);
+            }
+            
+            // Create new source element
+            const source = document.createElement('source');
+            source.src = performance.video;
+            source.type = 'video/mp4';
+            video.appendChild(source);
+            
+            // Show modal with active class
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Try to play the video
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log('Autoplay prevented, showing controls');
+                    video.controls = true;
+                });
+            }
+            
+            // Function to close modal and stop video
+            const closeModal = () => {
+                video.pause();
+                video.currentTime = 0;
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                
+                // Clean up video element
+                video.src = '';
+                while (video.firstChild) {
+                    video.removeChild(video.firstChild);
+                }
+                
+                // Re-add source for next time
+                const newSource = document.createElement('source');
+                newSource.id = 'videoSource';
+                newSource.type = 'video/mp4';
+                video.appendChild(newSource);
+            };
+            
+            // Close modal when clicking the close button
+            document.getElementById('closeModal').onclick = closeModal;
+            
+            // Close modal when clicking outside the video
+            modal.onclick = function(event) {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            };
+            
+            // Also close modal when pressing Escape key
+            document.addEventListener('keydown', function handleEscape(e) {
+                if (e.key === 'Escape') {
+                    closeModal();
+                    document.removeEventListener('keydown', handleEscape);
+                }
+            });
+            
+            // Update the UI to reflect the new view count
+            renderPerformances();
+        }
+
+        function likePerformance(performanceId) {
+            const performance = allPerformances.find(p => p.id === performanceId);
+            if (performance) {
+                performance.likes = (performance.likes || 0) + 1;
+                updateSubmissionInStorage(performance);
+                renderPerformances();
+            }
+        }
+
+        function viewPerformance(performanceId) {
+            const performance = allPerformances.find(p => p.id === performanceId);
+            if (performance) {
+                performance.views = (performance.views || 0) + 1;
+                updateSubmissionInStorage(performance);
+                renderPerformances();
+            }
+        }
+
+        function sharePerformance(performanceId) {
+            const performance = allPerformances.find(p => p.id === performanceId);
+            if (performance) {
+                if (navigator.share) {
+                    navigator.share({
+                        title: performance.title,
+                        text: `Check out this amazing dance performance: ${performance.title} by ${performance.artist}`,
+                        url: window.location.href + `#performance-${performanceId}`
+                    });
+                } else {
+                    const url = window.location.href + `#performance-${performanceId}`;
+                    navigator.clipboard.writeText(url).then(() => {
+                        alert('Link copied to clipboard!');
+                    });
+                }
+            }
+        }
+
+        function updateSubmissionInStorage(performance) {
+            const submissions = JSON.parse(localStorage.getItem('submissions') || '[]');
+            const index = submissions.findIndex(sub => sub.id === performance.id);
+            if (index !== -1) {
+                submissions[index] = performance;
+                localStorage.setItem('submissions', JSON.stringify(submissions));
+            }
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+    </script>
+    
+    <!-- Video Player Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="video-container">
+            <button class="close-btn" id="closeModal">&times;</button>
+            <video id="performanceVideo" class="video-player" controls>
+                <source id="videoSource" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="video-info">
+                <h3 id="videoTitle"></h3>
+                <p id="videoArtist"></p>
+                <div class="video-meta">
+                    <span id="videoViews"></span>
+                    <span id="videoDate"></span>
+                </div>
+                <p id="videoDescription"></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

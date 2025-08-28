@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Media Files</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .status {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #fileList {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 4px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Create Media Files</h1>
+    <p>Click the button below to create placeholder media files in the 'contents' directory.</p>
+    
+    <button id="createFiles">Create Media Files</button>
+    
+    <div id="status"></div>
+    
+    <h3>Files to be created:</h3>
+    <div id="fileList">
+        <p>No files created yet. Click the button above to create files.</p>
+    </div>
+
+    <script>
+        document.getElementById('createFiles').addEventListener('click', async () => {
+            const statusDiv = document.getElementById('status');
+            const fileListDiv = document.getElementById('fileList');
+            
+            // Clear previous status and file list
+            statusDiv.innerHTML = '';
+            fileListDiv.innerHTML = '<p>Creating files...</p>';
+            
+            try {
+                // Create contents directory if it doesn't exist
+                try {
+                    await fetch('contents/.', { method: 'HEAD' });
+                } catch (e) {
+                    // Directory doesn't exist, create it
+                    await fetch('contents/', { method: 'POST' });
+                }
+                
+                // Create thumbnail placeholders using canvas
+                const thumbnails = [
+                    { name: 'thumbnail1.jpg', text: 'Dance Performance 1' },
+                    { name: 'thumbnail2.jpg', text: 'Dance Performance 2' },
+                    { name: 'thumbnail3.jpg', text: 'Singing Performance' }
+                ];
+                
+                // Create video placeholders
+                const videos = [
+                    'dance1.mp4',
+                    'dance2.mp4',
+                    'singing1.mp4'
+                ];
+                
+                // Create thumbnails
+                fileListDiv.innerHTML = '<p>Creating thumbnails...</p>';
+                for (const thumb of thumbnails) {
+                    await createThumbnail(thumb.name, thumb.text);
+                    fileListDiv.innerHTML += `<p>✓ Created: contents/${thumb.name}</p>`;
+                }
+                
+                // Create video placeholders
+                fileListDiv.innerHTML += '<p>Creating video placeholders...</p>';
+                for (const video of videos) {
+                    await createVideoPlaceholder(video);
+                    fileListDiv.innerHTML += `<p>✓ Created: contents/${video}</p>`;
+                }
+                
+                // Show success message
+                statusDiv.className = 'status success';
+                statusDiv.textContent = 'Successfully created all media files!';
+                
+            } catch (error) {
+                console.error('Error creating files:', error);
+                statusDiv.className = 'status error';
+                statusDiv.textContent = `Error: ${error.message}`;
+                fileListDiv.innerHTML += `<p class="error">Error: ${error.message}</p>`;
+            }
+        });
+        
+        async function createThumbnail(filename, text) {
+            // Create a canvas element
+            const canvas = document.createElement('canvas');
+            canvas.width = 320;
+            canvas.height = 240;
+            const ctx = canvas.getContext('2d');
+            
+            // Draw background
+            ctx.fillStyle = '#496d89';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw text
+            ctx.fillStyle = '#ffff00';
+            ctx.font = '20px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+            
+            // Convert canvas to blob
+            return new Promise((resolve) => {
+                canvas.toBlob((blob) => {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `contents/${filename}`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    resolve();
+                }, 'image/jpeg', 0.8);
+            });
+        }
+        
+        async function createVideoPlaceholder(filename) {
+            // Create a simple text file as a placeholder
+            const blob = new Blob(['This is a placeholder video file.'], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `contents/${filename}`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            // Add a small delay to prevent browser from blocking multiple downloads
+            return new Promise(resolve => setTimeout(resolve, 100));
+        }
+    </script>
+</body>
+</html>

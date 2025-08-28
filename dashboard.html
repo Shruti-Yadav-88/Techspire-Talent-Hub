@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - TechSpire Talent Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <img src="logo.svg" alt="TechSpire Talent Hub" class="logo-img">
+                    <span class="logo-text">TechSpire Talent Hub</span>
+                </div>
+                <div class="nav-menu" id="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="dashboard.html" class="nav-link ">Dashboard</a>
+                    <a href="submit.html" class="nav-link">Submit Talent</a>
+                    <a href="profile.html" class="nav-link">Profile</a>
+                    <a href="#" class="nav-link" id="logoutBtn">Logout</a>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="dashboard-main">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1>Welcome back, <span id="userName"></span>!</h1>
+                <p>Manage your talents and explore new submissions</p>
+            </div>
+
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-upload"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-number" id="userSubmissions">0</div>
+                        <div class="stat-label">Your Submissions</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-number" id="totalLikes">0</div>
+                        <div class="stat-label">Total Likes</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-number" id="totalViews">0</div>
+                        <div class="stat-label">Total Views</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-number" id="userRank">-</div>
+                        <div class="stat-label">Your Rank</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-content">
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2>Quick Actions</h2>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="submit.html" class="action-card">
+                            <div class="action-icon">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                            <h3>Submit New Talent</h3>
+                            <p>Share your latest creation with the community</p>
+                        </a>
+                        <a href="profile.html" class="action-card">
+                            <div class="action-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h3>Edit Profile</h3>
+                            <p>Update your information and preferences</p>
+                        </a>
+                        <a href="arts.html" class="action-card">
+                            <div class="action-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h3>Explore Talents</h3>
+                            <p>Discover amazing work from other students</p>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2>Your Recent Submissions</h2>
+                        <a href="submit.html" class="btn btn-small">Add New</a>
+                    </div>
+                    <div class="submissions-grid" id="userSubmissionsGrid">
+                        <!-- User submissions will be populated here -->
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2>Trending This Week</h2>
+                        <a href="arts.html" class="btn btn-small">View All</a>
+                    </div>
+                    <div class="trending-grid" id="trendingGrid">
+                        <!-- Trending submissions will be populated here -->
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2>Your Talent Categories</h2>
+                    </div>
+                    <div class="talent-categories" id="userTalents">
+                        <!-- User talents will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="script.js"></script>
+    <script>
+        // Check if user is logged in
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser) {
+            window.location.href = 'login.html';
+        }
+
+        // Load dashboard data
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDashboardData();
+        });
+
+        function loadDashboardData() {
+            // Set user name
+            document.getElementById('userName').textContent = currentUser.firstName;
+
+            // Load user submissions
+            const allSubmissions = JSON.parse(localStorage.getItem('submissions') || '[]');
+            const userSubmissions = allSubmissions.filter(sub => sub.userId === currentUser.id);
+            
+            // Update stats
+            document.getElementById('userSubmissions').textContent = userSubmissions.length;
+            
+            const totalLikes = userSubmissions.reduce((sum, sub) => sum + (sub.likes || 0), 0);
+            document.getElementById('totalLikes').textContent = totalLikes;
+            
+            const totalViews = userSubmissions.reduce((sum, sub) => sum + (sub.views || 0), 0);
+            document.getElementById('totalViews').textContent = totalViews;
+
+            // Load user's recent submissions
+            loadUserSubmissions(userSubmissions.slice(0, 6));
+
+            // Load trending submissions
+            loadTrendingSubmissions(allSubmissions.slice(0, 6));
+
+            // Load user talents
+            loadUserTalents();
+        }
+
+        function loadUserSubmissions(submissions) {
+            const grid = document.getElementById('userSubmissionsGrid');
+            
+            if (submissions.length === 0) {
+                grid.innerHTML = '<div class="empty-state">No submissions yet. <a href="submit.html">Create your first submission!</a></div>';
+                return;
+            }
+
+            grid.innerHTML = submissions.map(submission => `
+                <div class="submission-card">
+                    <div class="submission-image">
+                        <img src="${submission.image || 'https://via.placeholder.com/300x200'}" alt="${submission.title}">
+                    </div>
+                    <div class="submission-info">
+                        <h3>${submission.title}</h3>
+                        <p>${submission.category}</p>
+                        <div class="submission-stats">
+                            <span><i class="fas fa-heart"></i> ${submission.likes || 0}</span>
+                            <span><i class="fas fa-eye"></i> ${submission.views || 0}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadTrendingSubmissions(submissions) {
+            const grid = document.getElementById('trendingGrid');
+            
+            // Sort by likes + views for trending
+            const trending = submissions
+                .sort((a, b) => (b.likes + b.views || 0) - (a.likes + a.views || 0))
+                .slice(0, 6);
+
+            if (trending.length === 0) {
+                grid.innerHTML = '<div class="empty-state">No submissions available yet.</div>';
+                return;
+            }
+
+            grid.innerHTML = trending.map(submission => `
+                <div class="submission-card">
+                    <div class="submission-image">
+                        <img src="${submission.image || 'https://via.placeholder.com/300x200'}" alt="${submission.title}">
+                    </div>
+                    <div class="submission-info">
+                        <h3>${submission.title}</h3>
+                        <p>By ${submission.authorName}</p>
+                        <div class="submission-stats">
+                            <span><i class="fas fa-heart"></i> ${submission.likes || 0}</span>
+                            <span><i class="fas fa-eye"></i> ${submission.views || 0}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadUserTalents() {
+            const container = document.getElementById('userTalents');
+            const talents = currentUser.talents || [];
+
+            container.innerHTML = talents.map(talent => `
+                <a href="${talent}.html" class="talent-tag">
+                    <i class="fas fa-${getTalentIcon(talent)}"></i>
+                    ${capitalizeFirst(talent)}
+                </a>
+            `).join('');
+        }
+
+        function getTalentIcon(talent) {
+            const icons = {
+                arts: 'palette',
+                singing: 'microphone',
+                dance: 'music',
+                poetry: 'pen-fancy',
+                blogs: 'blog',
+                innovations: 'lightbulb',
+                crafts: 'hammer'
+            };
+            return icons[talent] || 'star';
+        }
+
+        function capitalizeFirst(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('currentUser');
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+    <script type="module" src="js/navigation.js"></script>
+</body>
+</html>

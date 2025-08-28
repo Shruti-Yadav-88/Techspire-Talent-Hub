@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - TechSpire Talent Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <img src="logo.svg" alt="TechSpire Talent Hub" class="logo-img">
+                    <span class="logo-text">TechSpire Talent Hub</span>
+                </div>
+                <div class="nav-menu" id="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="arts.html" class="nav-link">Arts</a>
+                    <a href="singing.html" class="nav-link">Singing</a>
+                    <a href="dance.html" class="nav-link">Dance</a>
+                    <a href="poetry.html" class="nav-link">Poetry</a>
+                    <a href="blogs.html" class="nav-link">Blogs</a>
+                    <a href="innovations.html" class="nav-link">Innovations</a>
+                    <a href="crafts.html" class="nav-link">Crafts</a>
+                    <a href="contact.html" class="nav-link ">Contact</a>
+                    <a href="dashboard.html" class="nav-link" id="dashboardLink" style="display: none;">Dashboard</a>
+                    <a href="login.html" class="nav-link login-btn" id="loginLink">Login</a>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Contact Us</h1>
+                    <p>Get in touch with the TechSpire Talent Hub team</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <div class="container">
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h2>Get in Touch</h2>
+                        <p>We'd love to hear from you! Whether you have questions, suggestions, or need technical support, our team is here to help.</p>
+                        
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h3>Email Support</h3>
+                                    <p>support@cps.edu.np</p>
+                                    <p>We typically respond within 24 hours</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-method">
+                                <div class="contact-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h3>Community Forum</h3>
+                                    <p>Join our student community discussions</p>
+                                    <p>Get help from fellow TechSpire students</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-method">
+                                <div class="contact-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h3>Platform Hours</h3>
+                                    <p>24/7 Access Available</p>
+                                    <p>Support: Monday - Friday, 9 AM - 5 PM</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="quick-links">
+                            <h3>Quick Links</h3>
+                            <div class="links-grid">
+                                <a href="about.html" class="quick-link">
+                                    <i class="fas fa-info-circle"></i>
+                                    About Platform
+                                </a>
+                                <a href="register.html" class="quick-link">
+                                    <i class="fas fa-user-plus"></i>
+                                    Student Registration
+                                </a>
+                                <a href="submit.html" class="quick-link">
+                                    <i class="fas fa-upload"></i>
+                                    Submit Talent
+                                </a>
+                                <a href="dashboard.html" class="quick-link">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                    Student Dashboard
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-form-container">
+                        <form class="contact-form" id="contactForm">
+                            <h2>Send us a Message</h2>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name *</label>
+                                    <input type="text" id="firstName" name="firstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name *</label>
+                                    <input type="text" id="lastName" name="lastName" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required placeholder="your.name@cps.edu.np">
+                                <small class="form-text">Please use your TechSpire email address</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="studentId">Student ID</label>
+                                <input type="text" id="studentId" name="studentId" placeholder="Optional - helps us assist you better">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="category">Inquiry Category *</label>
+                                <select id="category" name="category" required>
+                                    <option value="">Select a category</option>
+                                    <option value="technical">Technical Support</option>
+                                    <option value="account">Account Issues</option>
+                                    <option value="submission">Submission Problems</option>
+                                    <option value="feature">Feature Request</option>
+                                    <option value="feedback">General Feedback</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="subject">Subject *</label>
+                                <input type="text" id="subject" name="subject" required placeholder="Brief description of your inquiry">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message">Message *</label>
+                                <textarea id="message" name="message" rows="6" required placeholder="Please provide detailed information about your inquiry..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="priority">Priority Level</label>
+                                <select id="priority" name="priority">
+                                    <option value="low">Low - General inquiry</option>
+                                    <option value="medium" selected>Medium - Standard issue</option>
+                                    <option value="high">High - Urgent problem</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="emailUpdates">
+                                    <span class="checkmark"></span>
+                                    I would like to receive updates about platform features and improvements
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-full">Send Message</button>
+                        </form>
+
+                        <div class="success-message" id="successMessage" style="display: none;"></div>
+                        <div class="error-message" id="errorMessage" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <div class="container">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h3>How do I register for TechSpire Talent Hub?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>To register, click on the "Register" button and fill out the registration form using your valid cps.edu.np email address. You'll need to verify your email before you can start using the platform.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h3>What types of talents can I submit?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>You can submit various types of talents including visual arts, singing performances, dance videos, poetry, blogs, innovative tech projects, and handmade crafts. We welcome all forms of creative expression!</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h3>Is there a limit to how many talents I can submit?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>There's no limit! We encourage students to share as many of their talents as they'd like. The more you share, the more you can inspire others in the TechSpire community.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h3>How can I edit my profile information?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Log into your account and navigate to the "Profile" page. Click on "Edit Profile" to update your personal information, bio, and talent categories.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h3>Can I delete my submissions?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Currently, you can manage your submissions through your dashboard. For deletion requests, please contact our support team, and we'll assist you with the process.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h3>Who can see my submissions?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Your submissions are visible to all registered TechSpire students. You can control your profile visibility settings in your account preferences.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <img src="logo.svg" alt="TechSpire Talent Hub" class="logo-img">
+                        <span class="logo-text">TechSpire Talent Hub</span>
+                    </div>
+                    <p>Empowering TechSpire students to showcase their creative talents and innovative ideas.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="submit.html">Submit Talent</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="arts.html">Arts</a></li>
+                        <li><a href="singing.html">Singing</a></li>
+                        <li><a href="dance.html">Dance</a></li>
+                        <li><a href="poetry.html">Poetry</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 TechSpire Talent Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthStatus();
+            setupContactForm();
+        });
+
+        function checkAuthStatus() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const loginLink = document.getElementById('loginLink');
+            const dashboardLink = document.getElementById('dashboardLink');
+            
+            if (currentUser) {
+                loginLink.style.display = 'none';
+                dashboardLink.style.display = 'block';
+                
+                // Pre-fill form if user is logged in
+                document.getElementById('firstName').value = currentUser.firstName;
+                document.getElementById('lastName').value = currentUser.lastName;
+                document.getElementById('email').value = currentUser.email;
+                document.getElementById('studentId').value = currentUser.studentId;
+            }
+        }
+
+        function setupContactForm() {
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                const email = formData.get('email');
+                const errorMessage = document.getElementById('errorMessage');
+                const successMessage = document.getElementById('successMessage');
+                
+                // Clear previous messages
+                errorMessage.style.display = 'none';
+                successMessage.style.display = 'none';
+                
+                // Validate email domain
+                if (!email.endsWith('@cps.edu.np')) {
+                    errorMessage.textContent = 'Please use a valid cps.edu.np email address';
+                    errorMessage.style.display = 'block';
+                    return;
+                }
+                
+                // Simulate form submission
+                const contactData = {
+                    id: Date.now().toString(),
+                    firstName: formData.get('firstName'),
+                    lastName: formData.get('lastName'),
+                    email: email,
+                    studentId: formData.get('studentId'),
+                    category: formData.get('category'),
+                    subject: formData.get('subject'),
+                    message: formData.get('message'),
+                    priority: formData.get('priority'),
+                    emailUpdates: document.getElementById('emailUpdates').checked,
+                    date: new Date().toISOString(),
+                    status: 'pending'
+                };
+                
+                // Store contact submission
+                const contacts = JSON.parse(localStorage.getItem('contactSubmissions') || '[]');
+                contacts.push(contactData);
+                localStorage.setItem('contactSubmissions', JSON.stringify(contacts));
+                
+                successMessage.textContent = 'Thank you for your message! We\'ll get back to you within 24 hours.';
+                successMessage.style.display = 'block';
+                
+                // Reset form
+                this.reset();
+                
+                // Scroll to success message
+                successMessage.scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const answer = faqItem.querySelector('.faq-answer');
+            const icon = element.querySelector('i');
+            
+            faqItem.classList.toggle('active');
+            
+            if (faqItem.classList.contains('active')) {
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                answer.style.maxHeight = '0';
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+    </script>
+    <script type="module" src="js/navigation.js"></script>
+</body>
+</html>

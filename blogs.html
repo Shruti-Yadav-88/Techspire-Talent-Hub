@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogs - TechSpire Talent Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <img src="logo.svg" alt="TechSpire Talent Hub" class="logo-img">
+                    <span class="logo-text">TechSpire Talent Hub</span>
+                </div>
+                <div class="nav-menu" id="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="arts.html" class="nav-link">Arts</a>
+                    <a href="singing.html" class="nav-link">Singing</a>
+                    <a href="dance.html" class="nav-link">Dance</a>
+                    <a href="poetry.html" class="nav-link">Poetry</a>
+                    <a href="blogs.html" class="nav-link ">Blogs</a>
+                    <a href="innovations.html" class="nav-link">Innovations</a>
+                    <a href="crafts.html" class="nav-link">Crafts</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                    <a href="dashboard.html" class="nav-link" id="dashboardLink" style="display: none;">Dashboard</a>
+                    <a href="login.html" class="nav-link login-btn" id="loginLink">Login</a>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Student Blogs</h1>
+                    <p>Read insightful articles, thoughts, and experiences shared by TechSpire students</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="blogs-section">
+            <div class="container">
+                <div class="blogs-header">
+                    <div class="blogs-filters">
+                        <button class="filter-btn active" data-filter="all">All Posts</button>
+                        <button class="filter-btn" data-filter="tech">Technology</button>
+                        <button class="filter-btn" data-filter="lifestyle">Lifestyle</button>
+                        <button class="filter-btn" data-filter="education">Education</button>
+                        <button class="filter-btn" data-filter="personal">Personal</button>
+                    </div>
+                    <div class="blogs-controls">
+                        <div class="search-box">
+                            <input type="text" id="searchInput" placeholder="Search blog posts...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="sort-controls">
+                            <select id="sortSelect">
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                                <option value="popular">Most Popular</option>
+                                <option value="title">Title A-Z</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blogs-grid" id="blogsGrid">
+                    <!-- Blog posts will be populated here -->
+                </div>
+
+                <div class="load-more-container">
+                    <button class="btn btn-secondary" id="loadMoreBtn">Load More</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-bloggers">
+            <div class="container">
+                <h2 class="section-title">Featured Bloggers</h2>
+                <div class="bloggers-grid" id="featuredBloggers">
+                    <!-- Featured bloggers will be populated here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <img src="logo.svg" alt="TechSpire Talent Hub" class="logo-img">
+                        <span class="logo-text">TechSpire Talent Hub</span>
+                    </div>
+                    <p>Empowering TechSpire students to showcase their creative talents and innovative ideas.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="submit.html">Submit Talent</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="arts.html">Arts</a></li>
+                        <li><a href="singing.html">Singing</a></li>
+                        <li><a href="dance.html">Dance</a></li>
+                        <li><a href="poetry.html">Poetry</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 TechSpire Talent Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Blog Modal -->
+    <div class="modal" id="blogModal">
+        <div class="modal-content blog-modal">
+            <div class="modal-header">
+                <h2 id="modalTitle"></h2>
+                <button class="close-btn" onclick="closeBlogModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="blog-meta">
+                    <span class="author-name" id="modalAuthor"></span>
+                    <span class="blog-category" id="modalCategory"></span>
+                    <span class="blog-date" id="modalDate"></span>
+                    <span class="read-time" id="modalReadTime"></span>
+                </div>
+                <div class="blog-content" id="modalContent"></div>
+                <div class="blog-actions">
+                    <button class="action-btn like-btn" id="modalLikeBtn">
+                        <i class="fas fa-heart"></i> <span id="modalLikes"></span>
+                    </button>
+                    <button class="action-btn share-btn" onclick="shareBlog()">
+                        <i class="fas fa-share"></i> Share
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+    <script>
+        let allBlogs = [];
+        let displayedBlogs = [];
+        let currentFilter = 'all';
+        let currentSort = 'newest';
+        let itemsPerPage = 9;
+        let currentPage = 1;
+        let currentBlog = null;
+
+        // Sample blog data
+        const sampleBlogs = [
+            {
+                id: '1',
+                title: 'The Future of Technology in Education',
+                author: 'Priya Sharma',
+                category: 'blogs',
+                subcategory: 'tech',
+                content: `<p>Technology has revolutionized the way we learn and teach. From virtual classrooms to AI-powered tutoring systems, the educational landscape is rapidly evolving.</p>
+
+                <p>In recent years, we've witnessed unprecedented growth in educational technology. Online learning platforms have made quality education accessible to millions of students worldwide, breaking down geographical barriers and creating new opportunities for learning.</p>
+
+                <p>As a student at TechSpire, I've experienced firsthand how technology can enhance the learning experience. Interactive whiteboards, collaborative online tools, and virtual reality simulations have transformed traditional classrooms into dynamic learning environments.</p>
+
+                <p>The integration of artificial intelligence in education promises even more personalized learning experiences. AI can analyze individual learning patterns and adapt content to match each student's pace and style of learning.</p>
+
+                <p>Looking ahead, I believe we'll see even more innovative applications of technology in education, making learning more engaging, accessible, and effective for students around the world.</p>`,
+                excerpt: 'Exploring how technology is transforming education and creating new opportunities for learning in the digital age.',
+                date: '2025-01-15',
+                readTime: '5 min read',
+                likes: 42,
+                views: 320,
+                tags: ['technology', 'education', 'AI', 'online learning']
+            },
+            {
+                id: '2',
+                title: 'Balancing Studies and Creative Pursuits',
+                author: 'Rahul Gupta',
+                category: 'blogs',
+                subcategory: 'lifestyle',
+                content: `<p>As students, we often find ourselves caught between academic responsibilities and our creative passions. The challenge lies in finding the right balance that allows us to excel in both areas.</p>
+
+                <p>My journey as a computer science student who also loves music has taught me valuable lessons about time management and priorities. Initially, I struggled to allocate time for both my studies and my passion for composing music.</p>
+
+                <p>The key breakthrough came when I realized that creativity and academics don't have to compete against each other. Instead, they can complement and enhance one another. The logical thinking required in programming often helps me structure my musical compositions better.</p>
+
+                <p>Here are some strategies that have helped me maintain this balance:</p>
+                
+                <ul>
+                    <li>Time blocking: Dedicating specific hours to studies and creative work</li>
+                    <li>Integration: Finding ways to incorporate creativity into academic projects</li>
+                    <li>Self-care: Ensuring adequate rest and recreation</li>
+                    <li>Community: Connecting with like-minded peers who share similar challenges</li>
+                </ul>
+
+                <p>Remember, your creative pursuits are not distractions from your studies – they're part of what makes you a well-rounded individual.</p>`,
+                excerpt: 'Tips and insights on managing academic responsibilities while pursuing creative passions as a student.',
+                date: '2025-01-12',
+                readTime: '4 min read',
+                likes: 38,
+                views: 280,
+                tags: ['lifestyle', 'creativity', 'time management', 'balance']
+            },
+            {
+                id: '3',
+                title: 'My Experience with Online Learning',
+                author: 'Sneha Patel',
+                category: 'blogs',
+                subcategory: 'education',
+                content: `<p>The shift to online learning has been one of the most significant changes in education in recent years. As someone who has experienced both traditional classroom learning and online education, I'd like to share my perspective on this transformation.</p>
+
+                <p>When online classes first began, I was skeptical about their effectiveness. How could virtual interactions replace face-to-face discussions? How would we maintain the same level of engagement and connection with our professors and classmates?</p>
+
+                <p>However, as I adapted to this new format, I discovered several unexpected benefits:</p>
+
+                <h3>Flexibility and Convenience</h3>
+                <p>Online learning allowed me to study at my own pace and revisit recorded lectures whenever needed. This flexibility was particularly helpful during exam preparations.</p>
+
+                <h3>Improved Digital Skills</h3>
+                <p>Navigating various online platforms and digital tools has significantly enhanced my technical skills, which are invaluable in today's job market.</p>
+
+                <h3>Self-Discipline and Independence</h3>
+                <p>Online learning demanded greater self-motivation and time management skills, helping me become more disciplined and independent in my studies.</p>
+
+                <p>While online learning isn't without its challenges – technical issues, reduced social interaction, and the need for strong self-motivation – it has opened up new possibilities for education that we should continue to explore and improve upon.</p>`,
+                excerpt: 'A student\'s perspective on the transition to online learning and its impact on education.',
+                date: '2025-01-10',
+                readTime: '6 min read',
+                likes: 29,
+                views: 210,
+                tags: ['education', 'online learning', 'student experience', 'digital skills']
+            },
+            {
+                id: '4',
+                title: 'Finding Your Voice: A Personal Journey',
+                author: 'Amit Kumar',
+                category: 'blogs',
+                subcategory: 'personal',
+                content: `<p>Growing up as an introverted student, I never imagined that I would one day be comfortable sharing my thoughts and ideas with others. This blog post is about my journey of finding my voice and the confidence to express myself.</p>
+
+                <p>For most of my school years, I was the quiet student who sat in the back of the class, rarely participating in discussions or group activities. While I had ideas and opinions, the fear of judgment kept me silent.</p>
+
+                <p>The turning point came during my first year at TechSpire when I joined the debate club, not by choice but as a requirement for one of my courses. The first few sessions were terrifying – my hands would shake, my voice would tremble, and I would stumble over my words.</p>
+
+                <p>But something magical happened as I continued to attend these sessions. I realized that everyone, even the most confident speakers, had moments of uncertainty. The supportive environment of the club helped me understand that making mistakes was part of the learning process.</p>
+
+                <h3>Lessons Learned</h3>
+                <p>Through this journey, I've learned several valuable lessons:</p>
+                
+                <ul>
+                    <li>Authenticity resonates more than perfection</li>
+                    <li>Practice builds confidence gradually</li>
+                    <li>Listening is as important as speaking</li>
+                    <li>Everyone has a unique perspective worth sharing</li>
+                </ul>
+
+                <p>Today, I'm proud to say that I've not only found my voice but also learned to use it to inspire and help others who might be going through similar challenges. Your voice matters – don't let fear silence it.</p>`,
+                excerpt: 'A personal story about overcoming shyness and finding the confidence to express oneself.',
+                date: '2025-01-08',
+                readTime: '5 min read',
+                likes: 56,
+                views: 420,
+                tags: ['personal growth', 'confidence', 'self-expression', 'introversion']
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthStatus();
+            loadBlogs();
+            setupEventListeners();
+        });
+
+        function checkAuthStatus() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const loginLink = document.getElementById('loginLink');
+            const dashboardLink = document.getElementById('dashboardLink');
+            
+            if (currentUser) {
+                loginLink.style.display = 'none';
+                dashboardLink.style.display = 'block';
+            }
+        }
+
+        function loadBlogs() {
+            // Combine submitted blogs with sample data
+            const submittedBlogs = JSON.parse(localStorage.getItem('submissions') || '[]')
+                .filter(sub => sub.category === 'blogs');
+            
+            allBlogs = [...sampleBlogs, ...submittedBlogs];
+            filterAndSortBlogs();
+        }
+
+        function filterAndSortBlogs() {
+            let filtered = allBlogs;
+
+            // Apply filter
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(blog => blog.subcategory === currentFilter);
+            }
+
+            // Apply search
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            if (searchTerm) {
+                filtered = filtered.filter(blog => 
+                    blog.title.toLowerCase().includes(searchTerm) ||
+                    blog.author.toLowerCase().includes(searchTerm) ||
+                    blog.excerpt.toLowerCase().includes(searchTerm) ||
+                    (blog.tags && blog.tags.some(tag => tag.toLowerCase().includes(searchTerm)))
+                );
+            }
+
+            // Apply sort
+            filtered.sort((a, b) => {
+                switch (currentSort) {
+                    case 'newest':
+                        return new Date(b.date) - new Date(a.date);
+                    case 'oldest':
+                        return new Date(a.date) - new Date(b.date);
+                    case 'popular':
+                        return (b.likes + b.views) - (a.likes + a.views);
+                    case 'title':
+                        return a.title.localeCompare(b.title);
+                    default:
+                        return 0;
+                }
+            });
+
+            displayedBlogs = filtered;
+            currentPage = 1;
+            renderBlogs();
+        }
+
+        function renderBlogs() {
+            const grid = document.getElementById('blogsGrid');
+            const startIndex = 0;
+            const endIndex = currentPage * itemsPerPage;
+            const blogsToShow = displayedBlogs.slice(startIndex, endIndex);
+
+            if (blogsToShow.length === 0) {
+                grid.innerHTML = '<div class="empty-state">No blog posts found. Try adjusting your filters or search terms.</div>';
+                document.getElementById('loadMoreBtn').style.display = 'none';
+                return;
+            }
+
+            grid.innerHTML = blogsToShow.map(blog => `
+                <article class="blog-card" data-category="${blog.subcategory}">
+                    <div class="blog-header">
+                        <div class="blog-meta">
+                            <span class="category-tag">${formatCategory(blog.subcategory)}</span>
+                            <span class="read-time">${blog.readTime}</span>
+                        </div>
+                        <h2 class="blog-title">${blog.title}</h2>
+                        <p class="blog-excerpt">${blog.excerpt}</p>
+                    </div>
+                    <div class="blog-footer">
+                        <div class="author-info">
+                            <div class="author-details">
+                                <span class="author-name">${blog.author}</span>
+                                <span class="publish-date">${formatDate(blog.date)}</span>
+                            </div>
+                        </div>
+                        <div class="blog-stats">
+                            <button class="stat-btn like-btn" onclick="likeBlog('${blog.id}')">
+                                <i class="fas fa-heart"></i> ${blog.likes}
+                            </button>
+                            <span class="views"><i class="fas fa-eye"></i> ${blog.views}</span>
+                        </div>
+                    </div>
+                    <div class="blog-actions">
+                        <button class="btn btn-primary btn-small" onclick="readBlog('${blog.id}')">
+                            Read Full Post
+                        </button>
+                    </div>
+                </article>
+            `).join('');
+
+            // Show/hide load more button
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            if (endIndex >= displayedBlogs.length) {
+                loadMoreBtn.style.display = 'none';
+            } else {
+                loadMoreBtn.style.display = 'block';
+            }
+        }
+
+        function setupEventListeners() {
+            // Filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.dataset.filter;
+                    filterAndSortBlogs();
+                });
+            });
+
+            // Search input
+            document.getElementById('searchInput').addEventListener('input', function() {
+                filterAndSortBlogs();
+            });
+
+            // Sort select
+            document.getElementById('sortSelect').addEventListener('change', function() {
+                currentSort = this.value;
+                filterAndSortBlogs();
+            });
+
+            // Load more button
+            document.getElementById('loadMoreBtn').addEventListener('click', function() {
+                currentPage++;
+                renderBlogs();
+            });
+
+            // Modal close on click outside
+            document.getElementById('blogModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeBlogModal();
+                }
+            });
+        }
+
+        function formatCategory(category) {
+            const categories = {
+                'tech': 'Technology',
+                'lifestyle': 'Lifestyle',
+                'education': 'Education',
+                'personal': 'Personal'
+            };
+            return categories[category] || category;
+        }
+
+        function readBlog(blogId) {
+            const blog = allBlogs.find(b => b.id === blogId);
+            if (blog) {
+                currentBlog = blog;
+                blog.views = (blog.views || 0) + 1;
+                updateSubmissionInStorage(blog);
+                
+                // Populate modal
+                document.getElementById('modalTitle').textContent = blog.title;
+                document.getElementById('modalAuthor').textContent = `By ${blog.author}`;
+                document.getElementById('modalCategory').textContent = formatCategory(blog.subcategory);
+                document.getElementById('modalDate').textContent = formatDate(blog.date);
+                document.getElementById('modalReadTime').textContent = blog.readTime;
+                document.getElementById('modalContent').innerHTML = blog.content;
+                document.getElementById('modalLikes').textContent = blog.likes;
+                
+                // Setup like button
+                const likeBtn = document.getElementById('modalLikeBtn');
+                likeBtn.onclick = () => likeBlog(blogId);
+                
+                // Show modal
+                document.getElementById('blogModal').style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                
+                renderBlogs();
+            }
+        }
+
+        function closeBlogModal() {
+            document.getElementById('blogModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            currentBlog = null;
+        }
+
+        function likeBlog(blogId) {
+            const blog = allBlogs.find(b => b.id === blogId);
+            if (blog) {
+                blog.likes = (blog.likes || 0) + 1;
+                updateSubmissionInStorage(blog);
+                
+                // Update modal if it's open
+                if (currentBlog && currentBlog.id === blogId) {
+                    document.getElementById('modalLikes').textContent = blog.likes;
+                }
+                
+                renderBlogs();
+            }
+        }
+
+        function shareBlog() {
+            if (currentBlog) {
+                if (navigator.share) {
+                    navigator.share({
+                        title: currentBlog.title,
+                        text: `Check out this interesting blog post: "${currentBlog.title}" by ${currentBlog.author}`,
+                        url: window.location.href + `#blog-${currentBlog.id}`
+                    });
+                } else {
+                    const url = window.location.href + `#blog-${currentBlog.id}`;
+                    navigator.clipboard.writeText(url).then(() => {
+                        alert('Link copied to clipboard!');
+                    });
+                }
+            }
+        }
+
+        function updateSubmissionInStorage(blog) {
+            const submissions = JSON.parse(localStorage.getItem('submissions') || '[]');
+            const index = submissions.findIndex(sub => sub.id === blog.id);
+            if (index !== -1) {
+                submissions[index] = blog;
+                localStorage.setItem('submissions', JSON.stringify(submissions));
+            }
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+            });
+        }
+
+        // Keyboard navigation for modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeBlogModal();
+            }
+        });
+    </script>
+    <script type="module" src="js/navigation.js"></script>
+</body>
+</html>

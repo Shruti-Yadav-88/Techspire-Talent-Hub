@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - TechSpire Talent Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <img src="logo.svg" alt="TechSpire Talent Hub" class="logo-img">
+                    <span class="logo-text">TechSpire Talent Hub</span>
+                </div>
+                <div class="nav-menu" id="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="dashboard.html" class="nav-link">Dashboard</a>
+                    <a href="submit.html" class="nav-link">Submit Talent</a>
+                    <a href="profile.html" class="nav-link ">Profile</a>
+                    <a href="#" class="nav-link" id="logoutBtn">Logout</a>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="profile-main">
+        <div class="container">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <div class="avatar-circle" id="avatarCircle">
+                        <span id="avatarInitials"></span>
+                    </div>
+                    <button class="edit-avatar-btn" onclick="changeAvatar()">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                </div>
+                <div class="profile-info">
+                    <h1 id="profileName"></h1>
+                    <p class="profile-email" id="profileEmail"></p>
+                    <p class="profile-student-id">Student ID: <span id="profileStudentId"></span></p>
+                    <p class="profile-join-date">Member since <span id="profileJoinDate"></span></p>
+                </div>
+                <div class="profile-actions">
+                    <button class="btn btn-primary" id="editProfileBtn">Edit Profile</button>
+                    <button class="btn btn-secondary" onclick="exportProfile()">Export Data</button>
+                </div>
+            </div>
+
+            <div class="profile-content">
+                <div class="profile-section">
+                    <div class="section-header">
+                        <h2>Profile Statistics</h2>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-upload"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-number" id="totalSubmissions">0</div>
+                                <div class="stat-label">Total Submissions</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-number" id="totalLikes">0</div>
+                                <div class="stat-label">Total Likes</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-number" id="totalViews">0</div>
+                                <div class="stat-label">Total Views</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-number" id="avgRating">4.5</div>
+                                <div class="stat-label">Avg. Rating</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <div class="section-header">
+                        <h2>Talent Categories</h2>
+                    </div>
+                    <div class="talent-categories" id="userTalentCategories">
+                        <!-- User talent categories will be populated here -->
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <div class="section-header">
+                        <h2>Recent Activity</h2>
+                        <select id="activityFilter">
+                            <option value="all">All Activities</option>
+                            <option value="submissions">Submissions</option>
+                            <option value="likes">Likes Received</option>
+                        </select>
+                    </div>
+                    <div class="activity-timeline" id="activityTimeline">
+                        <!-- Activity timeline will be populated here -->
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <div class="section-header">
+                        <h2>Account Settings</h2>
+                    </div>
+                    <div class="settings-grid">
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h3>Email Notifications</h3>
+                                <p>Receive notifications about likes, comments, and platform updates</p>
+                            </div>
+                            <div class="setting-control">
+                                <label class="switch">
+                                    <input type="checkbox" id="emailNotifications">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h3>Profile Visibility</h3>
+                                <p>Make your profile and submissions visible to all users</p>
+                            </div>
+                            <div class="setting-control">
+                                <label class="switch">
+                                    <input type="checkbox" id="profileVisibility" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h3>Show Contact Information</h3>
+                                <p>Display your email in your public profile</p>
+                            </div>
+                            <div class="setting-control">
+                                <label class="switch">
+                                    <input type="checkbox" id="showContact">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-section danger-zone">
+                    <div class="section-header">
+                        <h2>Danger Zone</h2>
+                    </div>
+                    <div class="danger-actions">
+                        <button class="btn btn-danger" onclick="deleteAllSubmissions()">
+                            Delete All Submissions
+                        </button>
+                        <button class="btn btn-danger" onclick="deleteAccount()">
+                            Delete Account
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal" id="editProfileModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Profile</h2>
+                <button class="close-btn" onclick="closeEditModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editProfileForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editFirstName">First Name</label>
+                            <input type="text" id="editFirstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editLastName">Last Name</label>
+                            <input type="text" id="editLastName" name="lastName" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editBio">Bio</label>
+                        <textarea id="editBio" name="bio" rows="4" placeholder="Tell us about yourself..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editTalents">Talents</label>
+                        <div class="checkbox-grid">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="talents" value="arts">
+                                <span class="checkmark"></span>
+                                Arts
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="talents" value="singing">
+                                <span class="checkmark"></span>
+                                Singing
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="talents" value="dance">
+                                <span class="checkmark"></span>
+                                Dance
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="talents" value="poetry">
+                                <span class="checkmark"></span>
+                                Poetry
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="talents" value="blogs">
+                                <span class="checkmark"></span>
+                                Writing/Blogs
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="talents" value="innovations">
+                                <span class="checkmark"></span>
+                                Innovations
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="talents" value="crafts">
+                                <span class="checkmark"></span>
+                                Crafts
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+    <script>
+        // Check if user is logged in
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser) {
+            window.location.href = 'login.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProfile();
+            setupEventListeners();
+        });
+
+        function loadProfile() {
+            // Load basic profile info
+            document.getElementById('profileName').textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+            document.getElementById('profileEmail').textContent = currentUser.email;
+            document.getElementById('profileStudentId').textContent = currentUser.studentId;
+            
+            const joinDate = new Date(currentUser.joinDate).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            document.getElementById('profileJoinDate').textContent = joinDate;
+
+            // Set avatar initials
+            const initials = `${currentUser.firstName.charAt(0)}${currentUser.lastName.charAt(0)}`;
+            document.getElementById('avatarInitials').textContent = initials;
+
+            // Load statistics
+            loadStatistics();
+
+            // Load talent categories
+            loadTalentCategories();
+
+            // Load recent activity
+            loadRecentActivity();
+
+            // Load settings
+            loadSettings();
+        }
+
+        function loadStatistics() {
+            const allSubmissions = JSON.parse(localStorage.getItem('submissions') || '[]');
+            const userSubmissions = allSubmissions.filter(sub => sub.userId === currentUser.id);
+            
+            document.getElementById('totalSubmissions').textContent = userSubmissions.length;
+            
+            const totalLikes = userSubmissions.reduce((sum, sub) => sum + (sub.likes || 0), 0);
+            document.getElementById('totalLikes').textContent = totalLikes;
+            
+            const totalViews = userSubmissions.reduce((sum, sub) => sum + (sub.views || 0), 0);
+            document.getElementById('totalViews').textContent = totalViews;
+
+            // Calculate average rating (mock calculation)
+            const avgRating = userSubmissions.length > 0 ? 
+                Math.min(5.0, 3.0 + (totalLikes / Math.max(userSubmissions.length, 1)) * 0.1).toFixed(1) : 
+                '0.0';
+            document.getElementById('avgRating').textContent = avgRating;
+        }
+
+        function loadTalentCategories() {
+            const container = document.getElementById('userTalentCategories');
+            const talents = currentUser.talents || [];
+
+            if (talents.length === 0) {
+                container.innerHTML = '<p class="empty-state">No talent categories selected. <button class="btn btn-small btn-primary" onclick="openEditModal()">Add talents</button></p>';
+                return;
+            }
+
+            container.innerHTML = talents.map(talent => `
+                <a href="${talent}.html" class="talent-category-card">
+                    <div class="talent-icon">
+                        <i class="fas fa-${getTalentIcon(talent)}"></i>
+                    </div>
+                    <div class="talent-info">
+                        <h3>${capitalizeFirst(talent)}</h3>
+                        <p>${getTalentSubmissionCount(talent)} submissions</p>
+                    </div>
+                </a>
+            `).join('');
+        }
+
+        function getTalentSubmissionCount(talent) {
+            const allSubmissions = JSON.parse(localStorage.getItem('submissions') || '[]');
+            return allSubmissions.filter(sub => sub.userId === currentUser.id && sub.category === talent).length;
+        }
+
+        function loadRecentActivity() {
+            const container = document.getElementById('activityTimeline');
+            const allSubmissions = JSON.parse(localStorage.getItem('submissions') || '[]');
+            const userSubmissions = allSubmissions
+                .filter(sub => sub.userId === currentUser.id)
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .slice(0, 10);
+
+            if (userSubmissions.length === 0) {
+                container.innerHTML = '<div class="empty-state">No recent activity. <a href="submit.html">Submit your first talent!</a></div>';
+                return;
+            }
+
+            container.innerHTML = userSubmissions.map(submission => `
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-${getTalentIcon(submission.category)}"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">
+                            <strong>Submitted "${submission.title}"</strong> in ${capitalizeFirst(submission.category)}
+                        </div>
+                        <div class="activity-meta">
+                            <span class="activity-date">${formatDate(submission.date)}</span>
+                            <span class="activity-stats">
+                                <i class="fas fa-heart"></i> ${submission.likes || 0}
+                                <i class="fas fa-eye"></i> ${submission.views || 0}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadSettings() {
+            // Load user preferences (default values for now)
+            document.getElementById('emailNotifications').checked = currentUser.emailNotifications !== false;
+            document.getElementById('profileVisibility').checked = currentUser.profileVisibility !== false;
+            document.getElementById('showContact').checked = currentUser.showContact === true;
+        }
+
+        function setupEventListeners() {
+            // Edit profile button
+            document.getElementById('editProfileBtn').addEventListener('click', openEditModal);
+
+            // Settings toggle handlers
+            document.getElementById('emailNotifications').addEventListener('change', saveSettings);
+            document.getElementById('profileVisibility').addEventListener('change', saveSettings);
+            document.getElementById('showContact').addEventListener('change', saveSettings);
+
+            // Activity filter
+            document.getElementById('activityFilter').addEventListener('change', filterActivity);
+
+            // Edit profile form submission
+            document.getElementById('editProfileForm').addEventListener('submit', handleProfileUpdate);
+
+            // Logout functionality
+            document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                if (confirm('Are you sure you want to logout?')) {
+                    localStorage.removeItem('currentUser');
+                    window.location.href = 'index.html';
+                }
+            });
+
+            // Modal close on click outside
+            document.getElementById('editProfileModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeEditModal();
+                }
+            });
+        }
+
+        function openEditModal() {
+            // Populate form with current user data
+            document.getElementById('editFirstName').value = currentUser.firstName;
+            document.getElementById('editLastName').value = currentUser.lastName;
+            document.getElementById('editBio').value = currentUser.bio || '';
+
+            // Set talent checkboxes
+            const talentCheckboxes = document.querySelectorAll('input[name="talents"]');
+            talentCheckboxes.forEach(checkbox => {
+                checkbox.checked = currentUser.talents && currentUser.talents.includes(checkbox.value);
+            });
+
+            document.getElementById('editProfileModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeEditModal() {
+            document.getElementById('editProfileModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function handleProfileUpdate(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const updatedUser = { ...currentUser };
+            
+            updatedUser.firstName = formData.get('firstName');
+            updatedUser.lastName = formData.get('lastName');
+            updatedUser.bio = formData.get('bio');
+            
+            // Get selected talents
+            const selectedTalents = Array.from(document.querySelectorAll('input[name="talents"]:checked'))
+                .map(checkbox => checkbox.value);
+            updatedUser.talents = selectedTalents;
+
+            // Update localStorage
+            localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+            
+            // Update users array
+            const users = JSON.parse(localStorage.getItem('techspireUsers') || '[]');
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex !== -1) {
+                users[userIndex] = updatedUser;
+                localStorage.setItem('techspireUsers', JSON.stringify(users));
+            }
+
+            // Reload profile
+            Object.assign(currentUser, updatedUser);
+            loadProfile();
+            closeEditModal();
+            
+            alert('Profile updated successfully!');
+        }
+
+        function saveSettings() {
+            currentUser.emailNotifications = document.getElementById('emailNotifications').checked;
+            currentUser.profileVisibility = document.getElementById('profileVisibility').checked;
+            currentUser.showContact = document.getElementById('showContact').checked;
+            
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            // Update users array
+            const users = JSON.parse(localStorage.getItem('techspireUsers') || '[]');
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex !== -1) {
+                users[userIndex] = currentUser;
+                localStorage.setItem('techspireUsers', JSON.stringify(users));
+            }
+        }
+
+        function filterActivity() {
+            // Reload activity based on filter (placeholder for now)
+            loadRecentActivity();
+        }
+
+        function changeAvatar() {
+            // Placeholder for avatar change functionality
+            alert('Avatar change functionality would be implemented here with file upload or avatar selection.');
+        }
+
+        function exportProfile() {
+            const profileData = {
+                user: currentUser,
+                submissions: JSON.parse(localStorage.getItem('submissions') || '[]')
+                    .filter(sub => sub.userId === currentUser.id)
+            };
+            
+            const dataStr = JSON.stringify(profileData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = `techspire_profile_${currentUser.studentId}.json`;
+            link.click();
+        }
+
+        function deleteAllSubmissions() {
+            if (confirm('Are you sure you want to delete all your submissions? This action cannot be undone.')) {
+                const allSubmissions = JSON.parse(localStorage.getItem('submissions') || '[]');
+                const otherSubmissions = allSubmissions.filter(sub => sub.userId !== currentUser.id);
+                localStorage.setItem('submissions', JSON.stringify(otherSubmissions));
+                
+                loadProfile();
+                alert('All submissions deleted successfully.');
+            }
+        }
+
+        function deleteAccount() {
+            if (confirm('Are you sure you want to delete your account? This action cannot be undone and will remove all your data.')) {
+                if (confirm('This is your final warning. Are you absolutely sure you want to delete your account?')) {
+                    // Remove user submissions
+                    const allSubmissions = JSON.parse(localStorage.getItem('submissions') || '[]');
+                    const otherSubmissions = allSubmissions.filter(sub => sub.userId !== currentUser.id);
+                    localStorage.setItem('submissions', JSON.stringify(otherSubmissions));
+                    
+                    // Remove user from users array
+                    const users = JSON.parse(localStorage.getItem('techspireUsers') || '[]');
+                    const otherUsers = users.filter(u => u.id !== currentUser.id);
+                    localStorage.setItem('techspireUsers', JSON.stringify(otherUsers));
+                    
+                    // Remove current user session
+                    localStorage.removeItem('currentUser');
+                    
+                    alert('Your account has been deleted. You will be redirected to the home page.');
+                    window.location.href = 'index.html';
+                }
+            }
+        }
+
+        function getTalentIcon(talent) {
+            const icons = {
+                arts: 'palette',
+                singing: 'microphone',
+                dance: 'music',
+                poetry: 'pen-fancy',
+                blogs: 'blog',
+                innovations: 'lightbulb',
+                crafts: 'hammer'
+            };
+            return icons[talent] || 'star';
+        }
+
+        function capitalizeFirst(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        // Keyboard navigation for modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeEditModal();
+            }
+        });
+    </script>
+    <script type="module" src="js/navigation.js"></script>
+</body>
+</html>

@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poetry Collection - TechSpire Talent Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <img src="logo.svg" alt="TechSpire Talent Hub" class="logo-img">
+                    <span class="logo-text">TechSpire Talent Hub</span>
+                </div>
+                <div class="nav-menu" id="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="arts.html" class="nav-link">Arts</a>
+                    <a href="singing.html" class="nav-link">Singing</a>
+                    <a href="dance.html" class="nav-link">Dance</a>
+                    <a href="poetry.html" class="nav-link ">Poetry</a>
+                    <a href="blogs.html" class="nav-link">Blogs</a>
+                    <a href="innovations.html" class="nav-link">Innovations</a>
+                    <a href="crafts.html" class="nav-link">Crafts</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                    <a href="dashboard.html" class="nav-link" id="dashboardLink" style="display: none;">Dashboard</a>
+                    <a href="login.html" class="nav-link login-btn" id="loginLink">Login</a>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Poetry Collection</h1>
+                    <p>Explore beautiful written poetry, spoken word, and literary expressions by TechSpire students</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="poetry-section">
+            <div class="container">
+                <div class="poetry-header">
+                    <div class="poetry-filters">
+                        <button class="filter-btn active" data-filter="all">All Poetry</button>
+                        <button class="filter-btn" data-filter="sonnet">Sonnets</button>
+                        <button class="filter-btn" data-filter="haiku">Haiku</button>
+                        <button class="filter-btn" data-filter="free-verse">Free Verse</button>
+                        <button class="filter-btn" data-filter="spoken-word">Spoken Word</button>
+                    </div>
+                    <div class="poetry-controls">
+                        <div class="search-box">
+                            <input type="text" id="searchInput" placeholder="Search poetry...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="sort-controls">
+                            <select id="sortSelect">
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                                <option value="popular">Most Popular</option>
+                                <option value="title">Title A-Z</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="poetry-grid" id="poetryGrid">
+                    <!-- Poetry items will be populated here -->
+                </div>
+
+                <div class="load-more-container">
+                    <button class="btn btn-secondary" id="loadMoreBtn">Load More</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-poets">
+            <div class="container">
+                <h2 class="section-title">Featured Poets</h2>
+                <div class="poets-grid" id="featuredPoets">
+                    <!-- Featured poets will be populated here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <img src="logo.svg" alt="TechSpire Talent Hub" class="logo-img">
+                        <span class="logo-text">TechSpire Talent Hub</span>
+                    </div>
+                    <p>Empowering TechSpire students to showcase their creative talents and innovative ideas.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="submit.html">Submit Talent</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="arts.html">Arts</a></li>
+                        <li><a href="singing.html">Singing</a></li>
+                        <li><a href="dance.html">Dance</a></li>
+                        <li><a href="poetry.html">Poetry</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 TechSpire Talent Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Poetry Modal -->
+    <div class="modal" id="poetryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle"></h2>
+                <button class="close-btn" onclick="closePoetryModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="poem-meta">
+                    <span class="poet-name" id="modalPoet"></span>
+                    <span class="poem-type" id="modalType"></span>
+                    <span class="poem-date" id="modalDate"></span>
+                </div>
+                <div class="poem-content" id="modalContent"></div>
+                <div class="poem-actions">
+                    <button class="action-btn like-btn" id="modalLikeBtn">
+                        <i class="fas fa-heart"></i> <span id="modalLikes"></span>
+                    </button>
+                    <button class="action-btn share-btn" onclick="sharePoem()">
+                        <i class="fas fa-share"></i> Share
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+    <script>
+        let allPoetry = [];
+        let displayedPoetry = [];
+        let currentFilter = 'all';
+        let currentSort = 'newest';
+        let itemsPerPage = 12;
+        let currentPage = 1;
+        let currentPoem = null;
+
+        // Sample poetry data
+        const samplePoetry = [
+            {
+                id: '1',
+                title: 'Digital Dreams',
+                poet: 'Aisha Patel',
+                category: 'poetry',
+                type: 'free-verse',
+                content: `In circuits of silicon and light,
+Where data flows like rivers bright,
+I dream of worlds beyond the screen,
+Of futures yet to be seen.
+
+Algorithms dance in binary code,
+While humanity finds its road,
+Between the virtual and the real,
+Where both can truly feel.`,
+                description: 'A reflection on technology and humanity in the digital age',
+                date: '2025-01-15',
+                likes: 45,
+                views: 230,
+                tags: ['technology', 'future', 'humanity']
+            },
+            {
+                id: '2',
+                title: 'Mountain Peak',
+                poet: 'James Wilson',
+                category: 'poetry',
+                type: 'haiku',
+                content: `Mountain peak so high,
+Clouds embrace the snowy crown,
+Peace within my soul.
+
+Wind whispers secrets,
+Ancient stones tell stories old,
+Nature's wisdom flows.
+
+Summit reached at last,
+World spreads out like canvas wide,
+Dreams become the sky.`,
+                description: 'A series of haiku inspired by mountain climbing',
+                date: '2025-01-12',
+                likes: 32,
+                views: 180,
+                tags: ['nature', 'mountains', 'peace']
+            },
+            {
+                id: '3',
+                title: 'Love\'s Eternal Sonnet',
+                poet: 'Maya Rodriguez',
+                category: 'poetry',
+                type: 'sonnet',
+                content: `When first I saw you standing in the light,
+My heart forgot the rhythm it had known,
+Your eyes like stars that pierce the darkest night,
+Your voice like music, sweet and softly grown.
+
+The world around us faded into mist,
+As if the universe had held its breath,
+For in that moment, nothing could exist
+But love that conquers even certain death.
+
+Your smile became my sun, your tears my rain,
+Your laughter echoed through my very soul,
+Without you here, my life would be in vain,
+For you alone can make my spirit whole.
+
+So take my hand and let our hearts be one,
+For true love's journey has but just begun.`,
+                description: 'A classic sonnet about the transformative power of love',
+                date: '2025-01-08',
+                likes: 67,
+                views: 420,
+                tags: ['love', 'romance', 'classic']
+            },
+            {
+                id: '4',
+                title: 'City Voices',
+                poet: 'Marcus Thompson',
+                category: 'poetry',
+                type: 'spoken-word',
+                content: `Listen! Can you hear it?
+The heartbeat of the city,
+Pounding through concrete veins,
+Stories in every corner,
+Dreams in every window...
+
+We are the voices of tomorrow,
+Rising from these streets,
+Carrying hope in our pockets,
+Revolution in our words,
+Change in our collective breath.
+
+This is our time,
+This is our moment,
+To speak truth to power,
+To lift each other up,
+To build the world we want to see.`,
+                description: 'A powerful spoken word piece about urban life and social change',
+                date: '2025-01-05',
+                likes: 89,
+                views: 650,
+                tags: ['social-justice', 'urban', 'empowerment']
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthStatus();
+            loadPoetry();
+            setupEventListeners();
+        });
+
+        function checkAuthStatus() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const loginLink = document.getElementById('loginLink');
+            const dashboardLink = document.getElementById('dashboardLink');
+            
+            if (currentUser) {
+                loginLink.style.display = 'none';
+                dashboardLink.style.display = 'block';
+            }
+        }
+
+        function loadPoetry() {
+            // Combine submitted poetry with sample data
+            const submittedPoetry = JSON.parse(localStorage.getItem('submissions') || '[]')
+                .filter(sub => sub.category === 'poetry');
+            
+            allPoetry = [...samplePoetry, ...submittedPoetry];
+            filterAndSortPoetry();
+        }
+
+        function filterAndSortPoetry() {
+            let filtered = allPoetry;
+
+            // Apply filter
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(poem => poem.type === currentFilter);
+            }
+
+            // Apply search
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            if (searchTerm) {
+                filtered = filtered.filter(poem => 
+                    poem.title.toLowerCase().includes(searchTerm) ||
+                    poem.poet.toLowerCase().includes(searchTerm) ||
+                    poem.content.toLowerCase().includes(searchTerm) ||
+                    (poem.tags && poem.tags.some(tag => tag.toLowerCase().includes(searchTerm)))
+                );
+            }
+
+            // Apply sort
+            filtered.sort((a, b) => {
+                switch (currentSort) {
+                    case 'newest':
+                        return new Date(b.date) - new Date(a.date);
+                    case 'oldest':
+                        return new Date(a.date) - new Date(b.date);
+                    case 'popular':
+                        return (b.likes + b.views) - (a.likes + a.views);
+                    case 'title':
+                        return a.title.localeCompare(b.title);
+                    default:
+                        return 0;
+                }
+            });
+
+            displayedPoetry = filtered;
+            currentPage = 1;
+            renderPoetry();
+        }
+
+        function renderPoetry() {
+            const grid = document.getElementById('poetryGrid');
+            const startIndex = 0;
+            const endIndex = currentPage * itemsPerPage;
+            const poetryToShow = displayedPoetry.slice(startIndex, endIndex);
+
+            if (poetryToShow.length === 0) {
+                grid.innerHTML = '<div class="empty-state">No poetry found. Try adjusting your filters or search terms.</div>';
+                document.getElementById('loadMoreBtn').style.display = 'none';
+                return;
+            }
+
+            grid.innerHTML = poetryToShow.map(poem => `
+                <div class="poetry-card" data-type="${poem.type}">
+                    <div class="poetry-header">
+                        <h3 class="poem-title">${poem.title}</h3>
+                        <span class="poem-type-tag">${formatType(poem.type)}</span>
+                    </div>
+                    <div class="poem-preview">
+                        <p>${getPreview(poem.content)}</p>
+                    </div>
+                    <div class="poetry-meta">
+                        <div class="poet-info">
+                            <span class="poet-name">By ${poem.poet}</span>
+                            <span class="poem-date">${formatDate(poem.date)}</span>
+                        </div>
+                        <div class="poem-tags">
+                            ${poem.tags ? poem.tags.slice(0, 2).map(tag => `<span class="tag">${tag}</span>`).join('') : ''}
+                        </div>
+                    </div>
+                    <div class="poetry-stats">
+                        <button class="stat-btn like-btn" onclick="likePoem('${poem.id}')">
+                            <i class="fas fa-heart"></i> ${poem.likes}
+                        </button>
+                        <button class="stat-btn view-btn" onclick="readPoem('${poem.id}')">
+                            <i class="fas fa-book-open"></i> Read
+                        </button>
+                        <span class="views"><i class="fas fa-eye"></i> ${poem.views}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            // Show/hide load more button
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            if (endIndex >= displayedPoetry.length) {
+                loadMoreBtn.style.display = 'none';
+            } else {
+                loadMoreBtn.style.display = 'block';
+            }
+        }
+
+        function setupEventListeners() {
+            // Filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.dataset.filter;
+                    filterAndSortPoetry();
+                });
+            });
+
+            // Search input
+            document.getElementById('searchInput').addEventListener('input', function() {
+                filterAndSortPoetry();
+            });
+
+            // Sort select
+            document.getElementById('sortSelect').addEventListener('change', function() {
+                currentSort = this.value;
+                filterAndSortPoetry();
+            });
+
+            // Load more button
+            document.getElementById('loadMoreBtn').addEventListener('click', function() {
+                currentPage++;
+                renderPoetry();
+            });
+
+            // Modal close on click outside
+            document.getElementById('poetryModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closePoetryModal();
+                }
+            });
+        }
+
+        function getPreview(content) {
+            const lines = content.split('\n').filter(line => line.trim());
+            return lines.slice(0, 3).join('\n') + (lines.length > 3 ? '...' : '');
+        }
+
+        function formatType(type) {
+            return type.split('-').map(word => 
+                word.charAt(0).toUpperCase() + word.slice(1)
+            ).join(' ');
+        }
+
+        function readPoem(poemId) {
+            const poem = allPoetry.find(p => p.id === poemId);
+            if (poem) {
+                currentPoem = poem;
+                poem.views = (poem.views || 0) + 1;
+                updateSubmissionInStorage(poem);
+                
+                // Populate modal
+                document.getElementById('modalTitle').textContent = poem.title;
+                document.getElementById('modalPoet').textContent = `By ${poem.poet}`;
+                document.getElementById('modalType').textContent = formatType(poem.type);
+                document.getElementById('modalDate').textContent = formatDate(poem.date);
+                document.getElementById('modalContent').innerHTML = poem.content.replace(/\n/g, '<br>');
+                document.getElementById('modalLikes').textContent = poem.likes;
+                
+                // Setup like button
+                const likeBtn = document.getElementById('modalLikeBtn');
+                likeBtn.onclick = () => likePoem(poemId);
+                
+                // Show modal
+                document.getElementById('poetryModal').style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                
+                renderPoetry();
+            }
+        }
+
+        function closePoetryModal() {
+            document.getElementById('poetryModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            currentPoem = null;
+        }
+
+        function likePoem(poemId) {
+            const poem = allPoetry.find(p => p.id === poemId);
+            if (poem) {
+                poem.likes = (poem.likes || 0) + 1;
+                updateSubmissionInStorage(poem);
+                
+                // Update modal if it's open
+                if (currentPoem && currentPoem.id === poemId) {
+                    document.getElementById('modalLikes').textContent = poem.likes;
+                }
+                
+                renderPoetry();
+            }
+        }
+
+        function sharePoem() {
+            if (currentPoem) {
+                if (navigator.share) {
+                    navigator.share({
+                        title: currentPoem.title,
+                        text: `Check out this beautiful poem: "${currentPoem.title}" by ${currentPoem.poet}`,
+                        url: window.location.href + `#poem-${currentPoem.id}`
+                    });
+                } else {
+                    const url = window.location.href + `#poem-${currentPoem.id}`;
+                    navigator.clipboard.writeText(url).then(() => {
+                        alert('Link copied to clipboard!');
+                    });
+                }
+            }
+        }
+
+        function updateSubmissionInStorage(poem) {
+            const submissions = JSON.parse(localStorage.getItem('submissions') || '[]');
+            const index = submissions.findIndex(sub => sub.id === poem.id);
+            if (index !== -1) {
+                submissions[index] = poem;
+                localStorage.setItem('submissions', JSON.stringify(submissions));
+            }
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+            });
+        }
+
+        // Keyboard navigation for modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closePoetryModal();
+            }
+        });
+    </script>
+    <script type="module" src="js/navigation.js"></script>
+</body>
+</html>

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Innovations - TechSpire Talent Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <img src="logo.svg" alt="TechSpire Talent Hub" class="logo-img">
+                    <span class="logo-text">TechSpire Talent Hub</span>
+                </div>
+                <div class="nav-menu" id="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="arts.html" class="nav-link">Arts</a>
+                    <a href="singing.html" class="nav-link">Singing</a>
+                    <a href="dance.html" class="nav-link">Dance</a>
+                    <a href="poetry.html" class="nav-link">Poetry</a>
+                    <a href="blogs.html" class="nav-link">Blogs</a>
+                    <a href="innovations.html" class="nav-link ">Innovations</a>
+                    <a href="crafts.html" class="nav-link">Crafts</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                    <a href="dashboard.html" class="nav-link" id="dashboardLink" style="display: none;">Dashboard</a>
+                    <a href="login.html" class="nav-link login-btn" id="loginLink">Login</a>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Student Innovations</h1>
+                    <p>Discover groundbreaking innovative ideas, tech projects, and creative solutions by TechSpire students</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="innovations-section">
+            <div class="container">
+                <div class="innovations-header">
+                    <div class="innovations-filters">
+                        <button class="filter-btn active" data-filter="all">All Innovations</button>
+                        <button class="filter-btn" data-filter="software">Software</button>
+                        <button class="filter-btn" data-filter="hardware">Hardware</button>
+                        <button class="filter-btn" data-filter="ai-ml">AI & ML</button>
+                        <button class="filter-btn" data-filter="web-app">Web Apps</button>
+                        <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
+                    </div>
+                    <div class="innovations-controls">
+                        <div class="search-box">
+                            <input type="text" id="searchInput" placeholder="Search innovations...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="sort-controls">
+                            <select id="sortSelect">
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                                <option value="popular">Most Popular</option>
+                                <option value="title">Title A-Z</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="innovations-grid" id="innovationsGrid">
+                    <!-- Innovation items will be populated here -->
+                </div>
+
+                <div class="load-more-container">
+                    <button class="btn btn-secondary" id="loadMoreBtn">Load More</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-innovators">
+            <div class="container">
+                <h2 class="section-title">Featured Innovators</h2>
+                <div class="innovators-grid" id="featuredInnovators">
+                    <!-- Featured innovators will be populated here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <img src="logo.svg" alt="TechSpire Talent Hub" class="logo-img">
+                        <span class="logo-text">TechSpire Talent Hub</span>
+                    </div>
+                    <p>Empowering TechSpire students to showcase their creative talents and innovative ideas.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="submit.html">Submit Talent</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="arts.html">Arts</a></li>
+                        <li><a href="singing.html">Singing</a></li>
+                        <li><a href="dance.html">Dance</a></li>
+                        <li><a href="poetry.html">Poetry</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 TechSpire Talent Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="script.js"></script>
+    <script>
+        let allInnovations = [];
+        let displayedInnovations = [];
+        let currentFilter = 'all';
+        let currentSort = 'newest';
+        let itemsPerPage = 12;
+        let currentPage = 1;
+
+        // Sample innovations data with provided images
+        const sampleInnovations = [
+            {
+                id: '1',
+                title: 'Smart Campus Navigation System',
+                innovator: 'Arjun Patel',
+                category: 'innovations',
+                type: 'mobile',
+                tech: ['React Native', 'Firebase', 'Google Maps API'],
+                image: 'https://pixabay.com/get/g4b73613abb39ab28a874f2327a0b8bdad40070d1a744553c44f39bb0cf457f90c80294f9bfe63abd28be4fe48c219566e0cf7645f2bcadb0814b08e2ca623166_1280.jpg',
+                description: 'An intelligent mobile app that helps students navigate the campus, find classrooms, and discover nearby facilities using AR technology.',
+                longDescription: `This innovative mobile application revolutionizes campus navigation by providing real-time, intelligent directions to students and visitors. The app combines GPS technology with augmented reality to create an immersive navigation experience.
+
+                Key features include:
+                - Real-time indoor and outdoor navigation
+                - Augmented reality overlays for enhanced wayfinding  
+                - Integration with class schedules for automatic routing
+                - Crowd-sourced updates for temporary closures or events
+                - Accessibility features for students with disabilities
+
+                The system has been tested across multiple campus locations and has shown a 40% reduction in time spent finding locations compared to traditional methods.`,
+                date: '2025-01-15',
+                status: 'prototype',
+                likes: 89,
+                views: 560,
+                github: '#',
+                demo: '#'
+            },
+            {
+                id: '2',
+                title: 'AI-Powered Study Buddy',
+                innovator: 'Kavya Singh',
+                category: 'innovations',
+                type: 'ai-ml',
+                tech: ['Python', 'TensorFlow', 'Natural Language Processing', 'Flask'],
+                image: 'https://pixabay.com/get/g975638c5f264b4f82b66de4df6701a7f7025bf49646946f42dd87a54700fdb0681ac25f194156c1f259b81faae4de96eb7225b774d9568c8feb80220c1e26266_1280.jpg',
+                description: 'An AI-powered educational assistant that personalizes learning experiences and provides intelligent tutoring support.',
+                longDescription: `This revolutionary AI system acts as a personalized study companion, adapting to each student's learning style and pace. Using advanced machine learning algorithms, it provides customized learning paths and intelligent feedback.
+
+                Core capabilities:
+                - Personalized learning path generation based on individual progress
+                - Natural language processing for question answering
+                - Adaptive testing that adjusts difficulty based on performance
+                - Study schedule optimization using behavioral analysis
+                - Integration with multiple learning management systems
+
+                The AI has been trained on over 10,000 hours of educational content and has shown remarkable success in improving student engagement and academic performance.`,
+                date: '2025-01-12',
+                status: 'beta',
+                likes: 124,
+                views: 780,
+                github: '#',
+                demo: '#'
+            },
+            {
+                id: '3',
+                title: 'Sustainable Energy Monitor',
+                innovator: 'Ravi Kumar',
+                category: 'innovations',
+                type: 'hardware',
+                tech: ['Arduino', 'IoT', 'Solar Panels', 'Mobile App'],
+                image: 'https://pixabay.com/get/g3b737d85cdfcc94d4f75cddcb856ed06d7572f0662775787114d6ebccf0c885e18809ce5b4995f6d72184802c328b7f4aa72f7c3a87ec9f8844aae74f2a760ba_1280.jpg',
+                description: 'An IoT-based system that monitors and optimizes energy consumption in buildings using renewable sources.',
+                longDescription: `This comprehensive energy monitoring solution combines hardware sensors with intelligent software to create a complete sustainable energy management system for buildings and campuses.
+
+                System components:
+                - Advanced sensor network for real-time energy monitoring
+                - Solar panel integration with battery storage optimization
+                - Predictive analytics for energy demand forecasting
+                - Automated load balancing and peak shaving
+                - Mobile dashboard for remote monitoring and control
+
+                The prototype has demonstrated up to 30% energy savings in pilot installations and has attracted interest from several sustainability organizations.`,
+                date: '2025-01-10',
+                status: 'development',
+                likes: 67,
+                views: 430,
+                github: '#',
+                demo: '#'
+            },
+            {
+                id: '4',
+                title: 'Virtual Collaboration Platform',
+                innovator: 'Neha Gupta',
+                category: 'innovations',
+                type: 'web-app',
+                tech: ['React', 'Node.js', 'WebRTC', 'MongoDB'],
+                image: 'https://pixabay.com/get/g24dd125fa6c3d3367cb1e08b8e7ace34968e49b47dcaf1d542445ec53fa018cb22c6a5b82c8997919c27a3e981d6de13de4417919ba87a6c8dd7110b96d3c3c8_1280.jpg',
+                description: 'A comprehensive web platform that enables seamless virtual collaboration for student project teams.',
+                longDescription: `This innovative web application addresses the challenges of remote collaboration by providing an integrated suite of tools designed specifically for student project teams and academic collaboration.
+
+                Platform features:
+                - Real-time collaborative code editing with syntax highlighting
+                - Integrated video conferencing with screen sharing capabilities
+                - Project management tools with timeline visualization
+                - File sharing and version control integration
+                - Interactive whiteboard for brainstorming sessions
+                - Progress tracking and milestone management
+
+                The platform has been adopted by over 200 student teams across different disciplines and has significantly improved project completion rates and team satisfaction.`,
+                date: '2025-01-08',
+                status: 'production',
+                likes: 156,
+                views: 920,
+                github: '#',
+                demo: '#'
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthStatus();
+            loadInnovations();
+            setupEventListeners();
+        });
+
+        function checkAuthStatus() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const loginLink = document.getElementById('loginLink');
+            const dashboardLink = document.getElementById('dashboardLink');
+            
+            if (currentUser) {
+                loginLink.style.display = 'none';
+                dashboardLink.style.display = 'block';
+            }
+        }
+
+        function loadInnovations() {
+            // Combine submitted innovations with sample data
+            const submittedInnovations = JSON.parse(localStorage.getItem('submissions') || '[]')
+                .filter(sub => sub.category === 'innovations');
+            
+            allInnovations = [...sampleInnovations, ...submittedInnovations];
+            filterAndSortInnovations();
+        }
+
+        function filterAndSortInnovations() {
+            let filtered = allInnovations;
+
+            // Apply filter
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(innovation => innovation.type === currentFilter);
+            }
+
+            // Apply search
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            if (searchTerm) {
+                filtered = filtered.filter(innovation => 
+                    innovation.title.toLowerCase().includes(searchTerm) ||
+                    innovation.innovator.toLowerCase().includes(searchTerm) ||
+                    innovation.description.toLowerCase().includes(searchTerm) ||
+                    (innovation.tech && innovation.tech.some(tech => tech.toLowerCase().includes(searchTerm)))
+                );
+            }
+
+            // Apply sort
+            filtered.sort((a, b) => {
+                switch (currentSort) {
+                    case 'newest':
+                        return new Date(b.date) - new Date(a.date);
+                    case 'oldest':
+                        return new Date(a.date) - new Date(b.date);
+                    case 'popular':
+                        return (b.likes + b.views) - (a.likes + a.views);
+                    case 'title':
+                        return a.title.localeCompare(b.title);
+                    default:
+                        return 0;
+                }
+            });
+
+            displayedInnovations = filtered;
+            currentPage = 1;
+            renderInnovations();
+        }
+
+        function renderInnovations() {
+            const grid = document.getElementById('innovationsGrid');
+            const startIndex = 0;
+            const endIndex = currentPage * itemsPerPage;
+            const innovationsToShow = displayedInnovations.slice(startIndex, endIndex);
+
+            if (innovationsToShow.length === 0) {
+                grid.innerHTML = '<div class="empty-state">No innovations found. Try adjusting your filters or search terms.</div>';
+                document.getElementById('loadMoreBtn').style.display = 'none';
+                return;
+            }
+
+            grid.innerHTML = innovationsToShow.map(innovation => `
+                <div class="innovation-card" data-type="${innovation.type}">
+                    <div class="innovation-image">
+                        <img src="${innovation.image}" alt="${innovation.title}" loading="lazy">
+                        <div class="status-badge ${innovation.status}">${formatStatus(innovation.status)}</div>
+                    </div>
+                    <div class="innovation-content">
+                        <div class="innovation-header">
+                            <h3 class="innovation-title">${innovation.title}</h3>
+                            <span class="innovation-type-tag">${formatType(innovation.type)}</span>
+                        </div>
+                        <p class="innovation-description">${innovation.description}</p>
+                        <div class="innovation-tech">
+                            ${innovation.tech ? innovation.tech.slice(0, 3).map(tech => `<span class="tech-tag">${tech}</span>`).join('') : ''}
+                        </div>
+                        <div class="innovation-meta">
+                            <div class="innovator-info">
+                                <span class="innovator-name">By ${innovation.innovator}</span>
+                                <span class="innovation-date">${formatDate(innovation.date)}</span>
+                            </div>
+                        </div>
+                        <div class="innovation-stats">
+                            <button class="stat-btn like-btn" onclick="likeInnovation('${innovation.id}')">
+                                <i class="fas fa-heart"></i> ${innovation.likes}
+                            </button>
+                            <span class="views"><i class="fas fa-eye"></i> ${innovation.views}</span>
+                        </div>
+                        <div class="innovation-actions">
+                            <button class="btn btn-primary btn-small" onclick="viewInnovation('${innovation.id}')">
+                                View Details
+                            </button>
+                            ${innovation.demo ? `<a href="${innovation.demo}" class="btn btn-secondary btn-small" target="_blank">Demo</a>` : ''}
+                            ${innovation.github ? `<a href="${innovation.github}" class="btn btn-outline btn-small" target="_blank"><i class="fab fa-github"></i> Code</a>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Show/hide load more button
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            if (endIndex >= displayedInnovations.length) {
+                loadMoreBtn.style.display = 'none';
+            } else {
+                loadMoreBtn.style.display = 'block';
+            }
+        }
+
+        function setupEventListeners() {
+            // Filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.dataset.filter;
+                    filterAndSortInnovations();
+                });
+            });
+
+            // Search input
+            document.getElementById('searchInput').addEventListener('input', function() {
+                filterAndSortInnovations();
+            });
+
+            // Sort select
+            document.getElementById('sortSelect').addEventListener('change', function() {
+                currentSort = this.value;
+                filterAndSortInnovations();
+            });
+
+            // Load more button
+            document.getElementById('loadMoreBtn').addEventListener('click', function() {
+                currentPage++;
+                renderInnovations();
+            });
+        }
+
+        function formatType(type) {
+            const types = {
+                'software': 'Software',
+                'hardware': 'Hardware',
+                'ai-ml': 'AI & ML',
+                'web-app': 'Web App',
+                'mobile': 'Mobile App'
+            };
+            return types[type] || type;
+        }
+
+        function formatStatus(status) {
+            const statuses = {
+                'prototype': 'Prototype',
+                'development': 'In Development',
+                'beta': 'Beta',
+                'production': 'Live'
+            };
+            return statuses[status] || status;
+        }
+
+        function viewInnovation(innovationId) {
+            const innovation = allInnovations.find(i => i.id === innovationId);
+            if (innovation) {
+                innovation.views = (innovation.views || 0) + 1;
+                updateSubmissionInStorage(innovation);
+                
+                // Here you would typically open a detailed modal or navigate to a detail page
+                alert(`Viewing: ${innovation.title}\n\nInnovator: ${innovation.innovator}\n\n${innovation.longDescription || innovation.description}\n\nTech Stack: ${innovation.tech ? innovation.tech.join(', ') : 'N/A'}`);
+                
+                renderInnovations();
+            }
+        }
+
+        function likeInnovation(innovationId) {
+            const innovation = allInnovations.find(i => i.id === innovationId);
+            if (innovation) {
+                innovation.likes = (innovation.likes || 0) + 1;
+                updateSubmissionInStorage(innovation);
+                renderInnovations();
+            }
+        }
+
+        function updateSubmissionInStorage(innovation) {
+            const submissions = JSON.parse(localStorage.getItem('submissions') || '[]');
+            const index = submissions.findIndex(sub => sub.id === innovation.id);
+            if (index !== -1) {
+                submissions[index] = innovation;
+                localStorage.setItem('submissions', JSON.stringify(submissions));
+            }
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+            });
+        }
+    </script>
+    <script type="module" src="js/navigation.js"></script>
+</body>
+</html>

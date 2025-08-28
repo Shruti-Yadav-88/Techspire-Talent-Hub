@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arts Gallery - TechSpire Talent Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <img src="logo.svg" alt="TechSpire Talent Hub" class="logo-img">
+                    <span class="logo-text">TechSpire Talent Hub</span>
+                </div>
+                <div class="nav-menu" id="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="arts.html" class="nav-link ">Arts</a>
+                    <a href="singing.html" class="nav-link">Singing</a>
+                    <a href="dance.html" class="nav-link">Dance</a>
+                    <a href="poetry.html" class="nav-link">Poetry</a>
+                    <a href="blogs.html" class="nav-link">Blogs</a>
+                    <a href="innovations.html" class="nav-link">Innovations</a>
+                    <a href="crafts.html" class="nav-link">Crafts</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                    <a href="dashboard.html" class="nav-link" id="dashboardLink" style="display: none;">Dashboard</a>
+                    <a href="login.html" class="nav-link login-btn" id="loginLink">Login</a>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Arts Gallery</h1>
+                    <p>Discover amazing visual artworks, paintings, drawings, and digital creations by TechSpire students</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="gallery-section">
+            <div class="container">
+                <div class="gallery-header">
+                    <div class="gallery-filters">
+                        <button class="filter-btn active" data-filter="all">All Arts</button>
+                        <button class="filter-btn" data-filter="painting">Paintings</button>
+                        <button class="filter-btn" data-filter="drawing">Drawings</button>
+                        <button class="filter-btn" data-filter="digital">Digital Art</button>
+                        <button class="filter-btn" data-filter="sculpture">Sculpture</button>
+                    </div>
+                    <div class="gallery-controls">
+                        <div class="search-box">
+                            <input type="text" id="searchInput" placeholder="Search artworks...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="sort-controls">
+                            <select id="sortSelect">
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                                <option value="popular">Most Popular</option>
+                                <option value="title">Title A-Z</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-grid" id="galleryGrid">
+                    <!-- Gallery items will be populated here -->
+                </div>
+
+                <div class="load-more-container">
+                    <button class="btn btn-secondary" id="loadMoreBtn">Load More</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-artists">
+            <div class="container">
+                <h2 class="section-title">Featured Artists</h2>
+                <div class="artists-grid" id="featuredArtists">
+                    <!-- Featured artists will be populated here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <img src="logo.svg" alt="TechSpire Talent Hub" class="logo-img">
+                        <span class="logo-text">TechSpire Talent Hub</span>
+                    </div>
+                    <p>Empowering TechSpire students to showcase their creative talents and innovative ideas.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="submit.html">Submit Talent</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="arts.html">Arts</a></li>
+                        <li><a href="singing.html">Singing</a></li>
+                        <li><a href="dance.html">Dance</a></li>
+                        <li><a href="poetry.html">Poetry</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 TechSpire Talent Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="script.js"></script>
+    <script>
+        let allArtworks = [];
+        let displayedArtworks = [];
+        let currentFilter = 'all';
+        let currentSort = 'newest';
+        let itemsPerPage = 12;
+        let currentPage = 1;
+
+        // Sample artworks data with provided images
+        const sampleArtworks = [
+            {
+                id: '1',
+                title: 'Abstract Expressionism',
+                artist: 'Sarah Johnson',
+                category: 'painting',
+                subcategory: 'Abstract',
+                image: 'contents/art1.jpg',
+                description: 'A vibrant abstract painting exploring color and emotion',
+                date: '2025-01-15',
+                likes: 45,
+                views: 230
+            },
+            {
+                id: '2',
+                title: 'Creative Workshop',
+                artist: 'Mike Chen',
+                category: 'digital',
+                subcategory: 'Digital Art',
+                image: 'contents/art2.jpg',
+                description: 'Digital artwork created during creative workshop session',
+                date: '2025-01-10',
+                likes: 32,
+                views: 180
+            },
+            {
+                id: '3',
+                title: 'Student Portfolio',
+                artist: 'Emma Davis',
+                category: 'drawing',
+                subcategory: 'Pencil Drawing',
+                image: 'contents/art3.jpg',
+                description: 'Collection of sketches and drawings from student portfolio',
+                date: '2025-01-08',
+                likes: 28,
+                views: 150
+            },
+            {
+                id: '4',
+                title: 'Modern Art Installation',
+                artist: 'Alex Rodriguez',
+                category: 'sculpture',
+                subcategory: 'Mixed Media',
+                image: 'contents/art4.jpg',
+                description: 'Contemporary sculpture using mixed media techniques',
+                date: '2025-01-05',
+                likes: 52,
+                views: 320
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthStatus();
+            loadArtworks();
+            setupEventListeners();
+        });
+
+        function checkAuthStatus() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const loginLink = document.getElementById('loginLink');
+            const dashboardLink = document.getElementById('dashboardLink');
+            
+            if (currentUser) {
+                loginLink.style.display = 'none';
+                dashboardLink.style.display = 'block';
+            }
+        }
+
+        function loadArtworks() {
+            // Combine submitted artworks with sample data
+            const submittedArtworks = JSON.parse(localStorage.getItem('submissions') || '[]')
+                .filter(sub => sub.category === 'arts');
+            
+            allArtworks = [...sampleArtworks, ...submittedArtworks];
+            filterAndSortArtworks();
+        }
+
+        function filterAndSortArtworks() {
+            let filtered = allArtworks;
+
+            // Apply filter
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(artwork => artwork.subcategory && artwork.subcategory.toLowerCase().includes(currentFilter));
+            }
+
+            // Apply search
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            if (searchTerm) {
+                filtered = filtered.filter(artwork => 
+                    artwork.title.toLowerCase().includes(searchTerm) ||
+                    artwork.artist.toLowerCase().includes(searchTerm) ||
+                    artwork.description.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            // Apply sort
+            filtered.sort((a, b) => {
+                switch (currentSort) {
+                    case 'newest':
+                        return new Date(b.date) - new Date(a.date);
+                    case 'oldest':
+                        return new Date(a.date) - new Date(b.date);
+                    case 'popular':
+                        return (b.likes + b.views) - (a.likes + a.views);
+                    case 'title':
+                        return a.title.localeCompare(b.title);
+                    default:
+                        return 0;
+                }
+            });
+
+            displayedArtworks = filtered;
+            currentPage = 1;
+            renderArtworks();
+        }
+
+        function renderArtworks() {
+            const grid = document.getElementById('galleryGrid');
+            const startIndex = 0;
+            const endIndex = currentPage * itemsPerPage;
+            const artworksToShow = displayedArtworks.slice(startIndex, endIndex);
+
+            if (artworksToShow.length === 0) {
+                grid.innerHTML = '<div class="empty-state">No artworks found. Try adjusting your filters or search terms.</div>';
+                document.getElementById('loadMoreBtn').style.display = 'none';
+                return;
+            }
+
+            grid.innerHTML = artworksToShow.map(artwork => `
+                <div class="gallery-item" data-category="${artwork.category}">
+                    <div class="gallery-image">
+                        <img src="${artwork.image}" alt="${artwork.title}" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="gallery-info">
+                                <h3>${artwork.title}</h3>
+                                <p>By ${artwork.artist}</p>
+                                <div class="gallery-stats">
+                                    <span><i class="fas fa-heart"></i> ${artwork.likes}</span>
+                                    <span><i class="fas fa-eye"></i> ${artwork.views}</span>
+                                </div>
+                            </div>
+                            <div class="gallery-actions">
+                                <button class="action-btn like-btn" onclick="likeArtwork('${artwork.id}')">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                                <button class="action-btn view-btn" onclick="viewArtwork('${artwork.id}')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-details">
+                        <h3>${artwork.title}</h3>
+                        <p class="artist-name">By ${artwork.artist}</p>
+                        <p class="artwork-description">${artwork.description}</p>
+                        <div class="artwork-meta">
+                            <span class="category-tag">${artwork.subcategory || artwork.category}</span>
+                            <span class="date">${formatDate(artwork.date)}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Show/hide load more button
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            if (endIndex >= displayedArtworks.length) {
+                loadMoreBtn.style.display = 'none';
+            } else {
+                loadMoreBtn.style.display = 'block';
+            }
+        }
+
+        function setupEventListeners() {
+            // Filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.dataset.filter;
+                    filterAndSortArtworks();
+                });
+            });
+
+            // Search input
+            document.getElementById('searchInput').addEventListener('input', function() {
+                filterAndSortArtworks();
+            });
+
+            // Sort select
+            document.getElementById('sortSelect').addEventListener('change', function() {
+                currentSort = this.value;
+                filterAndSortArtworks();
+            });
+
+            // Load more button
+            document.getElementById('loadMoreBtn').addEventListener('click', function() {
+                currentPage++;
+                renderArtworks();
+            });
+        }
+
+        function likeArtwork(artworkId) {
+            const artwork = allArtworks.find(a => a.id === artworkId);
+            if (artwork) {
+                artwork.likes = (artwork.likes || 0) + 1;
+                // Update in localStorage if it's a submitted artwork
+                updateSubmissionInStorage(artwork);
+                renderArtworks();
+            }
+        }
+
+        function viewArtwork(artworkId) {
+            const artwork = allArtworks.find(a => a.id === artworkId);
+            if (artwork) {
+                artwork.views = (artwork.views || 0) + 1;
+                updateSubmissionInStorage(artwork);
+                // Here you could open a modal or navigate to a detail page
+                alert(`Viewing: ${artwork.title}\n\n${artwork.description}`);
+                renderArtworks();
+            }
+        }
+
+        function updateSubmissionInStorage(artwork) {
+            const submissions = JSON.parse(localStorage.getItem('submissions') || '[]');
+            const index = submissions.findIndex(sub => sub.id === artwork.id);
+            if (index !== -1) {
+                submissions[index] = artwork;
+                localStorage.setItem('submissions', JSON.stringify(submissions));
+            }
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+            });
+        }
+    </script>
+    <script type="module" src="js/navigation.js"></script>
+</body>
+</html>
