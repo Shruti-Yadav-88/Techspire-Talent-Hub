@@ -157,7 +157,7 @@
                 category: 'innovations',
                 type: 'mobile',
                 tech: ['React Native', 'Firebase', 'Google Maps API'],
-                image: 'https://pixabay.com/get/g4b73613abb39ab28a874f2327a0b8bdad40070d1a744553c44f39bb0cf457f90c80294f9bfe63abd28be4fe48c219566e0cf7645f2bcadb0814b08e2ca623166_1280.jpg',
+                image: 'https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
                 description: 'An intelligent mobile app that helps students navigate the campus, find classrooms, and discover nearby facilities using AR technology.',
                 longDescription: `This innovative mobile application revolutionizes campus navigation by providing real-time, intelligent directions to students and visitors. The app combines GPS technology with augmented reality to create an immersive navigation experience.
 
@@ -183,7 +183,7 @@
                 category: 'innovations',
                 type: 'ai-ml',
                 tech: ['Python', 'TensorFlow', 'Natural Language Processing', 'Flask'],
-                image: 'https://pixabay.com/get/g975638c5f264b4f82b66de4df6701a7f7025bf49646946f42dd87a54700fdb0681ac25f194156c1f259b81faae4de96eb7225b774d9568c8feb80220c1e26266_1280.jpg',
+                image: 'https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
                 description: 'An AI-powered educational assistant that personalizes learning experiences and provides intelligent tutoring support.',
                 longDescription: `This revolutionary AI system acts as a personalized study companion, adapting to each student's learning style and pace. Using advanced machine learning algorithms, it provides customized learning paths and intelligent feedback.
 
@@ -209,7 +209,7 @@
                 category: 'innovations',
                 type: 'hardware',
                 tech: ['Arduino', 'IoT', 'Solar Panels', 'Mobile App'],
-                image: 'https://pixabay.com/get/g3b737d85cdfcc94d4f75cddcb856ed06d7572f0662775787114d6ebccf0c885e18809ce5b4995f6d72184802c328b7f4aa72f7c3a87ec9f8844aae74f2a760ba_1280.jpg',
+                image: './contents/images/sustainable-energy-monitor.jpg',
                 description: 'An IoT-based system that monitors and optimizes energy consumption in buildings using renewable sources.',
                 longDescription: `This comprehensive energy monitoring solution combines hardware sensors with intelligent software to create a complete sustainable energy management system for buildings and campuses.
 
@@ -235,7 +235,7 @@
                 category: 'innovations',
                 type: 'web-app',
                 tech: ['React', 'Node.js', 'WebRTC', 'MongoDB'],
-                image: 'https://pixabay.com/get/g24dd125fa6c3d3367cb1e08b8e7ace34968e49b47dcaf1d542445ec53fa018cb22c6a5b82c8997919c27a3e981d6de13de4417919ba87a6c8dd7110b96d3c3c8_1280.jpg',
+                image: 'https://images.pexels.com/photos/1206129/pexels-photo-1206129.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
                 description: 'A comprehensive web platform that enables seamless virtual collaboration for student project teams.',
                 longDescription: `This innovative web application addresses the challenges of remote collaboration by providing an integrated suite of tools designed specifically for student project teams and academic collaboration.
 
@@ -334,6 +334,7 @@
                 document.getElementById('loadMoreBtn').style.display = 'none';
                 return;
             }
+            console.log('Innovations to show:', innovationsToShow); // Debugging line
 
             grid.innerHTML = innovationsToShow.map(innovation => `
                 <div class="innovation-card" data-type="${innovation.type}">

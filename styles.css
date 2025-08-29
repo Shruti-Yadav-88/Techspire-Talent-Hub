@@ -1538,6 +1538,7 @@ a:hover {
   flex-wrap: wrap;
   font-size: var(--font-size-sm);
   color: var(--gray-600);
+  padding-left: var(--spacing-4); /* Added padding to align with other content */
 }
 
 .poem-content,
@@ -3003,4 +3004,19 @@ input:checked + .slider:before {
   .value-card:hover {
     transform: none;
   }
+}
+
+/* Ensure poetry meta is spaced correctly */
+.poetry-card .poetry-meta {
+  padding-left: var(--spacing-6);
+  padding-right: var(--spacing-6);
+  padding-bottom: var(--spacing-4);
+}
+
+/* Ensure poetry stats are spaced correctly */
+.poetry-card .poetry-stats {
+  padding-left: var(--spacing-6);
+  padding-right: var(--spacing-6);
+  padding-top: var(--spacing-4);
+  padding-bottom: var(--spacing-6);
 }

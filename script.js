@@ -150,7 +150,6 @@ const TechSpireApp = {
         navLinks.forEach((link, index) => {
             link.style.transitionDelay = `${index * 0.1}s`;
         });
-    }
     },
     
     // Update active navigation based on current page and scroll position
