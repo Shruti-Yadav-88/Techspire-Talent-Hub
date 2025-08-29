@@ -109,7 +109,7 @@
             
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            const rememberMe = document.getElementById('rememberMe').checked;
+            const rememberMe = document.getElementById('remember').checked; // Corrected ID
             const errorMessage = document.getElementById('errorMessage');
             const successMessage = document.getElementById('successMessage');
             
@@ -136,9 +136,9 @@
                 localStorage.setItem('currentUser', JSON.stringify(sessionUser));
                 
                 if (rememberMe) {
-                    localStorage.setItem('rememberedUser', email);
+                    localStorage.setItem('rememberedUserEmail', email);
                 } else {
-                    localStorage.removeItem('rememberedUser');
+                    localStorage.removeItem('rememberedUserEmail');
                 }
                 
                 successMessage.textContent = 'Login successful! Redirecting...';

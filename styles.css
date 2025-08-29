@@ -2672,8 +2672,24 @@ input:checked + .slider:before {
     padding: 0 var(--spacing-4);
   }
 
+  .nav-container {
+    padding: 0 var(--spacing-4);
+  }
+
+  .logo {
+    margin-right: var(--spacing-4); /* Adjusted for smaller screens */
+  }
+
   .hero {
     padding: var(--spacing-12) 0;
+  }
+
+  .hero-title {
+    font-size: 2.5rem; /* Adjusted for readability on smaller tablets */
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
   }
 
   .hero-buttons {
@@ -2707,34 +2723,104 @@ input:checked + .slider:before {
   .values-grid,
   .categories-grid {
     grid-template-columns: 1fr;
+    gap: var(--spacing-6); /* Ensured consistent gap */
   }
 
   .dashboard-stats {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Adjusted for smaller stat cards */
+    gap: var(--spacing-4);
+  }
+
+  .stat-card {
+    padding: var(--spacing-4); /* Reduced padding for smaller cards */
+  }
+
+  .stat-icon {
+    width: 50px;
+    height: 50px;
+    font-size: var(--font-size-xl);
+  }
+
+  .stat-number {
+    font-size: var(--font-size-xl);
   }
 
   .profile-header {
     flex-direction: column;
     text-align: center;
+    padding: var(--spacing-6); /* Adjusted padding */
+  }
+
+  .profile-avatar {
+    margin-bottom: var(--spacing-4);
+  }
+
+  .avatar-circle {
+    width: 100px;
+    height: 100px;
+    font-size: var(--font-size-2xl);
+  }
+
+  .edit-avatar-btn {
+    width: 36px;
+    height: 36px;
+    font-size: var(--font-size-base);
+  }
+
+  .profile-info h1 {
+    font-size: var(--font-size-2xl);
+  }
+
+  .talent-categories {
+    flex-direction: column; /* Ensure stacked for small tablets too */
+    gap: var(--spacing-4);
+  }
+
+  .talent-category-card {
+    min-width: unset; /* Remove min-width restriction */
+    padding: var(--spacing-4);
+  }
+
+  .talent-icon {
+    width: 40px;
+    height: 40px;
+    font-size: var(--font-size-base);
   }
 
   .modal-content {
     margin: var(--spacing-4);
     max-height: calc(100vh - 2rem);
+    padding: var(--spacing-6); /* Adjusted padding for modals */
+  }
+
+  .modal-header {
+    padding: var(--spacing-4); /* Adjusted padding for modal header */
+  }
+
+  .modal-body {
+    padding: var(--spacing-4); /* Adjusted padding for modal body */
   }
 
   .form-actions,
   .modal-actions {
     flex-direction: column;
+    gap: var(--spacing-3); /* Smaller gap for stacked buttons */
   }
 
   .about-section {
     grid-template-columns: 1fr;
     text-align: center;
+    gap: var(--spacing-6); /* Adjusted gap */
   }
 
   .contact-content {
     grid-template-columns: 1fr;
+    gap: var(--spacing-6); /* Adjusted gap */
+  }
+
+  .contact-info,
+  .contact-form-container {
+    padding: var(--spacing-6); /* Adjusted padding */
   }
 
   .faq-question {
@@ -2743,6 +2829,63 @@ input:checked + .slider:before {
 
   .faq-question h3 {
     font-size: var(--font-size-base);
+  }
+
+  .gallery-grid,
+  .performances-grid,
+  .blogs-grid,
+  .poetry-grid,
+  .innovations-grid {
+    grid-template-columns: 1fr; /* Default to single column for most content grids */
+    gap: var(--spacing-4);
+  }
+
+  .gallery-item,
+  .performance-card,
+  .blog-card,
+  .poetry-card,
+  .innovation-card {
+    max-width: none; /* Allow cards to take full width within container */
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-2);
+  }
+
+  .section-header h2 {
+    text-align: center; /* Center align section titles */
+    width: 100%;
+  }
+
+  .gallery-filters,
+  .blogs-filters,
+  .poetry-filters,
+  .innovations-filters {
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  .filter-btn {
+    width: 100%;
+  }
+
+  .gallery-controls,
+  .blogs-controls,
+  .poetry-controls,
+  .innovations-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-4);
+  }
+
+  .search-box {
+    min-width: unset;
+  }
+
+  .sort-controls select {
+    width: 100%;
   }
 }
 
